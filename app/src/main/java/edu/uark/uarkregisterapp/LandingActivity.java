@@ -82,12 +82,10 @@ public class LandingActivity extends AppCompatActivity {
 
 			new AlertDialog.Builder(LandingActivity.this)
 				.setMessage(R.string.alert_dialog_no_employees_exist)
-				.setPositiveButton(
-					R.string.button_ok,
-					new DialogInterface.OnClickListener() {
+				.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
-							startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
-
+							//startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
+							startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 							dialog.dismiss();
 						}
 					}
