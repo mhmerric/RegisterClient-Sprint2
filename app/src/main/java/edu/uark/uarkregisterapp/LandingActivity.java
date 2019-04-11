@@ -58,6 +58,7 @@ public class LandingActivity extends AppCompatActivity {
 				.setEmployeeId(this.getEmployeeIdEditText().getText().toString())
 				.setPassword(this.getPasswordEditText().getText().toString())
 		);
+
 	}
 
 	private EditText getEmployeeIdEditText() {
@@ -84,8 +85,8 @@ public class LandingActivity extends AppCompatActivity {
 				.setMessage(R.string.alert_dialog_no_employees_exist)
 				.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
-							//startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
-							startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+							startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
+							//startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 							dialog.dismiss();
 						}
 					}
