@@ -17,17 +17,11 @@ import java.util.List;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.Item;
 
-
-public class CartListAdapter extends RecyclerView.Adapter {
+public class CartListAdapter extends RecyclerView.Adapter{
     private List callListResponses = new ArrayList<>();
     final List templist=new ArrayList<>();
     private Activity context;
     int lastPosition=0;
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
-    }
 
     public CartListAdapter(Activity context, List callListResponses)
     {
@@ -37,34 +31,39 @@ public class CartListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+    }
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.content_shopping_cart, parent, false);
 
         return new ViewHolder(itemView);
     }
 
+    /*
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            // Casted to "Item"?
+            final Item call = (Item) callListResponses.get(position);
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        // Casted to "Item"?
-        final Item call = (Item) callListResponses.get(position);
+            holder.itemname.setText(call.getItemName());
+            holder.itemprice.setText(call.getRate()+" Rs");
+            holder.itemsize.setText(call.getSize());
+            holder.tv_quantity.setText(call.getQuantity());
 
-        holder.itemname.setText(call.getItemName());
-        holder.itemprice.setText(call.getRate()+" Rs");
-        holder.itemsize.setText(call.getSize());
-        holder.tv_quantity.setText(call.getQuantity());
-
-        holder.cart_minus_img.setOnClickListener(new QuantityListener(context, holder.tv_quantity,call,false));
-        holder.cart_plus_img.setOnClickListener(new QuantityListener(context, holder.tv_quantity,call,true));
-        holder.img_deleteitem.setOnClickListener(new DeleteItemListener(context,call,this));
-    }
-
+            holder.cart_minus_img.setOnClickListener(new QuantityListener(context, holder.tv_quantity,call,false));
+            holder.cart_plus_img.setOnClickListener(new QuantityListener(context, holder.tv_quantity,call,true));
+            holder.img_deleteitem.setOnClickListener(new DeleteItemListener(context,call,this));
+        }
+    */
     //Animating single element
     private void setAnimation(View viewToAnimate, int position)
     {
         if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_right_in);
-            viewToAnimate.startAnimation(animation);
+            //Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_right_in);
+            //viewToAnimate.startAnimation(animation);
             lastPosition=position;
         }
         position++;
@@ -86,17 +85,14 @@ public class CartListAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cart_minus_img=(ImageView) itemView.findViewById(R.id.cart_minus_img);
+            /*cart_minus_img=(ImageView) itemView.findViewById(R.id.cart_minus_img);
             cart_plus_img=(ImageView) itemView.findViewById(R.id.cart_plus_img);
             img_deleteitem=(ImageView) itemView.findViewById(R.id.img_deleteitem);
             itemname=(TextView) itemView.findViewById(R.id.itemname);
             itemprice=(TextView) itemView.findViewById(R.id.itemprice);
             itemsize=(TextView) itemView.findViewById(R.id.itemsize);
             tv_quantity=(TextView) itemView.findViewById(R.id.tv_quantity);
-
+            */
         }
     }
-
-
-
 }

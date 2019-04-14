@@ -20,7 +20,7 @@ import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
-
+    /*
     RecyclerView recycler_itemlist;
     public static TextView tv_total;
     CartListAdapter cartListAdapter;
@@ -130,12 +130,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private void placeOrderRequest(){
         //Send Request to Server with required Parameters
-    /*
-   jsonCartList - Consists of Objects of all product selected.
-    */
+
+   //jsonCartList - Consists of Objects of all product selected.
+
 
     }
-
+    */
 }
 
-}

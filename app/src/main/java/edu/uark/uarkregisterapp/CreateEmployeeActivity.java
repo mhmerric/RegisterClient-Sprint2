@@ -110,6 +110,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
     }
 
     private class CreateEmployeeTask extends AsyncTask<Employee, Void, ApiResponse<Employee>> {
+        // Creating employee alert
         @Override
         protected void onPreExecute() {
             this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeActivity.this)
@@ -118,6 +119,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             this.createEmployeeAlert.show();
         }
 
+        // Check for valid response
         @Override
         protected ApiResponse<Employee> doInBackground(Employee... employees) {
             if (employees.length > 0) {
@@ -128,6 +130,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             }
         }
 
+        // Display alert or create employee
         @Override
         protected void onPostExecute(ApiResponse<Employee> apiResponse) {
             this.createEmployeeAlert.dismiss();
