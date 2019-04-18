@@ -125,8 +125,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             if (employees.length > 0) {
                 return (new EmployeeService()).createEmployee(employees[0]);
             } else {
-                return (new ApiResponse<Employee>())
-                    .setValidResponse(false);
+                return (new ApiResponse<Employee>()).setValidResponse(false);
             }
         }
 
@@ -145,10 +144,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-            intent.putExtra(
-                getString(R.string.intent_extra_employee)
-                , new EmployeeTransition(apiResponse.getData())
-            );
+            intent.putExtra(getString(R.string.intent_extra_employee), new EmployeeTransition(apiResponse.getData()));
 
             startActivity(intent);
         }

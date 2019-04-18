@@ -35,8 +35,8 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 		this.products = new ArrayList<>();
 		this.productListAdapter = new ProductListAdapter(this, this.products);
-
 		this.getProductsListView().setAdapter(this.productListAdapter);
+
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

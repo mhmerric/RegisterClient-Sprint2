@@ -1,5 +1,6 @@
 package edu.uark.uarkregisterapp;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -16,16 +17,22 @@ import android.widget.TextView;
 import android.view.MenuItem;
 import android.support.v7.widget.LinearLayoutManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
+import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
+import edu.uark.uarkregisterapp.models.api.Product;
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
-    /*
-    RecyclerView recycler_itemlist;
+
     public static TextView tv_total;
-    CartListAdapter cartListAdapter;
     public static int total=0;
     String jsonCartList;
+
+    private List<Item> items;
+    private CartListAdapter cartListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,31 +43,28 @@ public class ShoppingCartActivity extends AppCompatActivity {
         // Set back button
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setTitle("Cart");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tv_total =(TextView) findViewById(R.id.tv_total);
+        this.items = new ArrayList<>();
+        this.cartListAdapter = new CartListAdapter(this, this.items);
 
-        recycler_itemlist =(RecyclerView) findViewById(R.id.recycler_cart);
-        recycler_itemlist.setHasFixedSize(true);
-        recycler_itemlist.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        recycler_itemlist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        recycler_itemlist.getRecycledViewPool().setMaxRecycledViews(0, 0);
+        this.getItemsView().setAdapter(this.cartListAdapter);
 
-        cartListAdapter = new CartListAdapter(ShoppingCartActivity.this,ItemListAdapter.selecteditems);
-        recycler_itemlist.setAdapter(cartListAdapter);
+        tv_total = findViewById(R.id.tv_total);
 
-        getIntentData();
 
-        calculateTotal();
+        //recyclerView = findViewById(R.id.list_view_items);
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        //recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        // Adapter to display array as listview
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.content_shopping_cart, mobileArray);
+        //cartListAdapter = new CartListAdapter(ShoppingCartActivity.this,Item.recycler_itemlist.setAdapter(cartListAdapter);
 
-        ListView listView = (ListView) findViewById(R.id.list_view_products);
-        listView.setAdapter(adapter);
+        //getIntentData();
+
+        //calculateTotal();
 
     }
 
@@ -77,6 +81,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
     }
 
+    private ListView getItemsView() {
+        return (ListView) this.findViewById(R.id.list_view_items);
+    }
+
+    /*
     private void getIntentData(){
         if(getIntent()!=null && getIntent().getExtras()!=null){
             // Get the Required Parameters for sending Order to server.
