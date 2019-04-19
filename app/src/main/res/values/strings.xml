@@ -3,7 +3,7 @@
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">ProductViewActivity</string>
     <string name="title_activity_shopping_cart">ShoppingCartActivity</string>
-    <string name="button_checkout">Checkout</string>
+    <string name="button_place_order">Place Order</string>
     <string name="button_save">Save</string>
     <string name="button_ok">OK</string>
     <string name="button_dismiss">Dismiss</string>
@@ -18,7 +18,7 @@
     <string name="button_delete">Delete</string>
     <string name="button_create_product">Create Product</string>
     <string name="button_back">Back</string>
-    <string name="text_view_shopping_total">Cart Total:</string>
+    <string name="text_view_shopping_total">Total : </string>
     <string name="text_view_landing_welcome">UARK Register App</string>
     <string name="text_view_please_sign_in">Please Sign In</string>
     <string name="text_view_products_lookup_code">LookupCode</string>

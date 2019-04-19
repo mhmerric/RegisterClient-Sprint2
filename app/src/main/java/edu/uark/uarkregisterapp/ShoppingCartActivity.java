@@ -1,28 +1,18 @@
 package edu.uark.uarkregisterapp;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Toast;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.view.MenuItem;
-import android.support.v7.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
-import edu.uark.uarkregisterapp.models.api.Product;
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -37,7 +27,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart);
+        setContentView(R.layout.content_shopping_cart);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         // Set back button
@@ -95,7 +85,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public static void calculateTotal(){
         int i=0;
         total=0;
-        while(i<ItemListAdapter.selecteditems.size()){
+        while(i<CartListAdapter.selecteditems.size()){
             total=total + ( Integer.valueOf(ItemListAdapter.selecteditems.get(i).getRate()) * Integer.valueOf(ItemListAdapter.selecteditems.get(i).getQuantity()) );
             i++;
         }

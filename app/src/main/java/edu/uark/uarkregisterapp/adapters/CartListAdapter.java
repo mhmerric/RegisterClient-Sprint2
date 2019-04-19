@@ -7,13 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Locale;
 
 import edu.uark.uarkregisterapp.R;
-import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.Item;
 
 public class CartListAdapter extends ArrayAdapter<Item> {
@@ -23,7 +20,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
-            view = inflater.inflate(R.layout.content_shopping_cart, parent, false);
+            view = inflater.inflate(R.layout.list_view_shopping_cart, parent, false);
         }
 
         Item item = this.getItem(position);
@@ -48,7 +45,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
     }
 
     public CartListAdapter(Context context, List<Item> items) {
-        super(context, R.layout.content_shopping_cart, items);
+        super(context, R.layout.list_view_shopping_cart, items);
     }
 }
 
@@ -96,7 +93,7 @@ public class CartListAdapter extends RecyclerView.Adapter{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.content_shopping_cart, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.list_view_shopping_cart, parent, false);
 
         return new ViewHolder(itemView);
     }
