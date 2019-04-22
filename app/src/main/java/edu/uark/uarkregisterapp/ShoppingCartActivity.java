@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
+import edu.uark.uarkregisterapp.models.api.Item;
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_shopping_cart);
+        setContentView(R.layout.activity_shopping_cart);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         // Set back button

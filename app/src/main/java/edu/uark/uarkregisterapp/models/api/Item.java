@@ -1,4 +1,4 @@
-package edu.uark.uarkregisterapp;
+package edu.uark.uarkregisterapp.models.api;
 
 public class Item {
 

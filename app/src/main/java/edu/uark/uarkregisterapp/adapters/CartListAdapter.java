@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.R;
-import edu.uark.uarkregisterapp.Item;
+import edu.uark.uarkregisterapp.models.api.Item;
 
 public class CartListAdapter extends ArrayAdapter<Item> {
     @NonNull
@@ -72,7 +72,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.R;
-import edu.uark.uarkregisterapp.Item;
+import edu.uark.uarkregisterapp.models.api.Item;
 
 public class CartListAdapter extends RecyclerView.Adapter{
     private List callListResponses = new ArrayList<Item>();

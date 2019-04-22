@@ -2,7 +2,7 @@
     <string name="app_name">UARKRegisterApp</string>
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">ProductViewActivity</string>
-    <string name="title_activity_shopping_cart">ShoppingCartActivity</string>
+    <string name="title_activity_shopping_cart">Shopping Cart</string>
     <string name="button_place_order">Place Order</string>
     <string name="button_save">Save</string>
     <string name="button_ok">OK</string>
@@ -59,6 +59,6 @@
     <string name="intent_extra_employee">intent_extra_employee</string>
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="title_activity_create_employee">CreateEmployeeActivity</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main Menu</string>
     <string name="title_shopping_cart">Shopping Cart</string>
 </resources>
