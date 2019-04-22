@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void beginTransactionButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+        this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
     }
 
     public void productSalesReportButtonOnClick(View view) {

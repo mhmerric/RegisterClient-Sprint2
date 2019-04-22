@@ -60,7 +60,6 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:onClick="insertOrder"
         android:text="@string/button_place_order"
         android:textColor="@android:color/white"
         android:theme="@style/Theme.AppCompat"></Button>

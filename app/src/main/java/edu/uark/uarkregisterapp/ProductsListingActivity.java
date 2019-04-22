@@ -63,6 +63,10 @@ public class ProductsListingActivity extends AppCompatActivity {
 		return (ListView) this.findViewById(R.id.list_view_products);
 	}
 
+	public void viewCartButtonOnClick(View view) {
+		this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+	}
+
 	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
 		@Override
 		protected void onPreExecute() {

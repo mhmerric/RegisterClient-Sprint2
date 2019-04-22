@@ -86,7 +86,6 @@ public class LandingActivity extends AppCompatActivity {
 				.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
-							//startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 							dialog.dismiss();
 						}
 					}

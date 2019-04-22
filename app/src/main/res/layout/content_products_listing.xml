@@ -23,4 +23,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"/>
 
+    <Button
+        android:id="@+id/btn_placeorder"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:onClick="viewCartButtonOnClick"
+        android:text="@string/button_cart"
+        android:textColor="@android:color/white"
+        android:theme="@style/Theme.AppCompat"></Button>
+
 </RelativeLayout>

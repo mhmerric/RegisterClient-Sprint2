@@ -83,6 +83,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
     }
 
+
     public static void calculateTotal(){
         int i=0;
         total=0;
@@ -90,9 +91,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
             total=total + ( Integer.valueOf(ItemListAdapter.selecteditems.get(i).getRate()) * Integer.valueOf(ItemListAdapter.selecteditems.get(i).getQuantity()) );
             i++;
         }
-        tv_total.setText(""+total);
+        tv_total.setText(" $"+total);
     }
-
+    /*
     public void insertOrder(View view){
 
         if(total>0){
