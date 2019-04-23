@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 import java.util.Locale;
+import java.text.DecimalFormat;
 
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Product;
@@ -35,10 +36,21 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 			if (countTextView != null) {
 				countTextView.setText(String.format(Locale.getDefault(), "%d", product.getCount()));
 			}
+
+			TextView priceTextView = (TextView) view.findViewById(R.id.list_view_item_product_price);
+			if (priceTextView != null) {
+				// If price format is provided
+				//priceTextView.setText("$" + String.format(Locale.getDefault(), "%d", product.getPrice()));
+
+				// No price format provided
+				priceTextView.setText("$" + df.format(product.getPrice()));
+			}
 		}
 
 		return view;
 	}
+
+	DecimalFormat df = new DecimalFormat("#,###.##");
 
 	public ProductListAdapter(Context context, List<Product> products) {
 		super(context, R.layout.list_view_item_product, products);

@@ -43,6 +43,15 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		return this;
 	}
 
+	private int price;
+	public int getPrice() {
+		return this.price;
+	}
+	public Product setPrice(int price) {
+		this.price = price;
+		return this;
+	}
+
 	private Date createdOn;
 	public Date getCreatedOn() {
 		return this.createdOn;
@@ -61,6 +70,7 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 
 		this.lookupCode = rawJsonObject.optString(ProductFieldName.LOOKUP_CODE.getFieldName());
 		this.count = rawJsonObject.optInt(ProductFieldName.COUNT.getFieldName());
+		this.price = rawJsonObject.optInt(ProductFieldName.PRICE.getFieldName());
 
 		value = rawJsonObject.optString(ProductFieldName.CREATED_ON.getFieldName());
 		if (!StringUtils.isBlank(value)) {

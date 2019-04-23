@@ -30,7 +30,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 		ActionBar actionBar = this.getSupportActionBar();
 		if (actionBar != null) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		this.products = new ArrayList<>();
