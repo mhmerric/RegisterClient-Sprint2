@@ -5,7 +5,8 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 public enum EmployeeApiMethod implements PathElementInterface {
     NONE(""),
     SIGN_IN("signin"),
-    ACTIVE_EXISTS("activeexists");
+    ACTIVE_EXISTS("activeexists"),
+    CREATE_EMPLOYEE("createEmployee");
 
     @Override
     public String getPathValue() {

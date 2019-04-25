@@ -61,6 +61,8 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		return this;
 	}
 
+
+
 	@Override
 	public Product loadFromJson(JSONObject rawJsonObject) {
 		String value = rawJsonObject.optString(ProductFieldName.ID.getFieldName());

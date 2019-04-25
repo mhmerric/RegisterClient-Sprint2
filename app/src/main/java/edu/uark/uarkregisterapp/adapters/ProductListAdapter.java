@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Product;
 
-public class ProductListAdapter extends ArrayAdapter<Product> {
+public class ProductListAdapter extends ArrayAdapter<Product> implements Filterable {
 	@NonNull
 	@Override
 	public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -56,6 +56,56 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 	public ProductListAdapter(Context context, List<Product> products) {
 		super(context, R.layout.list_view_item_product, products);
 	}
+/*
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
 
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,FilterResults results) {
+
+                mDisplayedValues = (ArrayList<Product>) results.values; // has the filtered values
+                notifyDataSetChanged();  // notifies the data with new filtered values
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                ArrayList<Product> FilteredArrList = new ArrayList<Product>();
+
+                if (mOriginalValues == null) {
+                    mOriginalValues = new ArrayList<Product>(mDisplayedValues); // saves the original data in mOriginalValues
+                }
+
+                ********
+                 *
+                 *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
+                 *  else does the Filtering and returns FilteredArrList(Filtered)
+                 *
+                 ********
+                if (constraint == null || constraint.length() == 0) {
+
+                    // set the Original result to return
+                    results.count = mOriginalValues.size();
+                    results.values = mOriginalValues;
+                } else {
+                    constraint = constraint.toString().toLowerCase();
+                    for (int i = 0; i < mOriginalValues.size(); i++) {
+                        String data = mOriginalValues.get(i).name;
+                        if (data.toLowerCase().startsWith(constraint.toString())) {
+                            FilteredArrList.add(new Product(mOriginalValues.get(i).name,mOriginalValues.get(i).price));
+                        }
+                    }
+                    // set the Filtered result to return
+                    results.count = FilteredArrList.size();
+                    results.values = FilteredArrList;
+                }
+                return results;
+            }
+        };
+        return filter;
+    }
+*/
 
 }
