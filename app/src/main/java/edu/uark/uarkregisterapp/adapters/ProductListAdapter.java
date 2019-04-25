@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
 			TextView countTextView = (TextView) view.findViewById(R.id.list_view_item_product_count);
 			if (countTextView != null) {
-				countTextView.setText(String.format(Locale.getDefault(), "%d", product.getCount()));
+				countTextView.setText("Qty: " + String.format(Locale.getDefault(), "%d", product.getCount()));
 			}
 
 			TextView priceTextView = (TextView) view.findViewById(R.id.list_view_item_product_price);
@@ -55,4 +56,6 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 	public ProductListAdapter(Context context, List<Product> products) {
 		super(context, R.layout.list_view_item_product, products);
 	}
+
+
 }
