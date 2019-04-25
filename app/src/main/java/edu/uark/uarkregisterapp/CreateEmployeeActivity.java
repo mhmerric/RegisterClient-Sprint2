@@ -110,6 +110,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
     }
 
     private class CreateEmployeeTask extends AsyncTask<Employee, Void, ApiResponse<Employee>> {
+        // Creating employee alert
         @Override
         protected void onPreExecute() {
             this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeActivity.this)
@@ -118,16 +119,17 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             this.createEmployeeAlert.show();
         }
 
+        // Check for valid response
         @Override
         protected ApiResponse<Employee> doInBackground(Employee... employees) {
             if (employees.length > 0) {
                 return (new EmployeeService()).createEmployee(employees[0]);
             } else {
-                return (new ApiResponse<Employee>())
-                    .setValidResponse(false);
+                return (new ApiResponse<Employee>()).setValidResponse(false);
             }
         }
 
+        // Display alert or create employee
         @Override
         protected void onPostExecute(ApiResponse<Employee> apiResponse) {
             this.createEmployeeAlert.dismiss();
@@ -142,10 +144,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-            intent.putExtra(
-                getString(R.string.intent_extra_employee)
-                , new EmployeeTransition(apiResponse.getData())
-            );
+            intent.putExtra(getString(R.string.intent_extra_employee), new EmployeeTransition(apiResponse.getData()));
 
             startActivity(intent);
         }

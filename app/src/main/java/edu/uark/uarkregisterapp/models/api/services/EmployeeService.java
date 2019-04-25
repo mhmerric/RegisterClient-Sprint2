@@ -22,11 +22,7 @@ public class EmployeeService extends BaseRemoteService {
 	}
 
 	public ApiResponse<Boolean> getActiveEmployeeExists() {
-		ApiResponse<Boolean> activeEmployeeExistsResponse = this.performGetRequest(
-			this.buildPath(
-				(new PathElementInterface[] { EmployeeApiMethod.ACTIVE_EXISTS})
-			)
-		);
+		ApiResponse<Boolean> activeEmployeeExistsResponse = this.performGetRequest(this.buildPath((new PathElementInterface[] { EmployeeApiMethod.ACTIVE_EXISTS})));
 
 		activeEmployeeExistsResponse.setData(
 			activeEmployeeExistsResponse.isValidResponse()
@@ -47,8 +43,10 @@ public class EmployeeService extends BaseRemoteService {
 	public ApiResponse<Employee> createEmployee(Employee employee) {
 		return this.readEmployeeDetailsFromResponse(
 			this.<Employee>performPostRequest(
-				this.buildPath(),
-				employee.convertToJson()
+					this.buildPath(
+							(new PathElementInterface[] { EmployeeApiMethod.CREATE_EMPLOYEE})
+					),
+					employee.convertToJson()
 			)
 		);
 	}

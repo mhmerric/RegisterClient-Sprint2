@@ -27,9 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
         this.getEmployeeWelcomeTextView().setText("Welcome " + this.employeeTransition.getFirstName() + " (" + this.employeeTransition.getEmployeeId() + ")!");
     }
+    /*
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        this.getEmployeeWelcomeTextView().setText("Welcome " + this.employeeTransition.getFirstName() + " (" + this.employeeTransition.getEmployeeId() + ")!");
+    }
+    */
     public void beginTransactionButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
     }
 
     public void productSalesReportButtonOnClick(View view) {
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createEmployeeButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
     }
 
     public void logOutButtonOnClick(View view) {

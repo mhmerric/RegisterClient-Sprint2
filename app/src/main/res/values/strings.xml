@@ -2,6 +2,9 @@
     <string name="app_name">UARKRegisterApp</string>
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">ProductViewActivity</string>
+    <string name="title_activity_shopping_cart">Shopping Cart</string>
+    <string name="button_cart">View Shopping Cart</string>
+    <string name="button_place_order">Place Order</string>
     <string name="button_save">Save</string>
     <string name="button_ok">OK</string>
     <string name="button_dismiss">Dismiss</string>
@@ -15,6 +18,8 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_delete">Delete</string>
     <string name="button_create_product">Create Product</string>
+    <string name="button_back">Back</string>
+    <string name="text_view_shopping_total">Total: </string>
     <string name="text_view_landing_welcome">UARK Register App</string>
     <string name="text_view_please_sign_in">Please Sign In</string>
     <string name="text_view_products_lookup_code">LookupCode</string>
@@ -54,6 +59,8 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
     <string name="intent_extra_product">intent_extra_product</string>
-    <string name="title_activity_create_employee">CreateEmployeeActivity</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_create_employee">Create Employee</string>
+    <string name="title_activity_main">Main Menu</string>
+    <string name="title_shopping_cart">Shopping Cart</string>
+    <string name="edit_text_search">Search</string>
 </resources>

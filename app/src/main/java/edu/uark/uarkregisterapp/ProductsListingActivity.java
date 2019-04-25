@@ -8,8 +8,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.LayoutInflater.Filter;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,15 +34,21 @@ public class ProductsListingActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_products_listing);
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
+		EditText theFilter = (EditText) findViewById(R.id.filter);
+
 		ActionBar actionBar = this.getSupportActionBar();
 		if (actionBar != null) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		this.products = new ArrayList<>();
-		this.productListAdapter = new ProductListAdapter(this, this.products);
+		this.filterProducts = new ArrayList<>();
 
+		this.productListAdapter = new ProductListAdapter(this, this.products);
 		this.getProductsListView().setAdapter(this.productListAdapter);
+
+		this.getProductsListView().setTextFilterEnabled(true); // Enable filter
+
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -50,6 +62,23 @@ public class ProductsListingActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+
+		theFilter.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				(ProductsListingActivity.this).productListAdapter.getFilter().filter(s.toString());
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+
+			}
+		});
 	}
 
 	@Override
@@ -61,6 +90,10 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 	private ListView getProductsListView() {
 		return (ListView) this.findViewById(R.id.list_view_products);
+	}
+
+	public void viewCartButtonOnClick(View view) {
+		this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 	}
 
 	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
@@ -114,6 +147,9 @@ public class ProductsListingActivity extends AppCompatActivity {
 		}
 	}
 
+
+
 	private List<Product> products;
+	private List<Product> filterProducts;
 	private ProductListAdapter productListAdapter;
 }
