@@ -23,6 +23,14 @@
         android:inputType="textFilter"
         android:textAlignment="viewStart" />
 
+    <!--<SearchView
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:padding="2dp"
+        android:queryHint="Search...." />-->
+
     <ListView
         android:id="@+id/list_view_products"
         android:layout_width="wrap_content"

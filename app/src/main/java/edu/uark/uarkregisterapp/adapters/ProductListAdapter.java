@@ -7,16 +7,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.Locale;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import edu.uark.uarkregisterapp.ProductsListingActivity;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Product;
 
 public class ProductListAdapter extends ArrayAdapter<Product> implements Filterable {
+
+	//private List<Product> mOriginalValues; // Original Values
+	//private List<Product> mDisplayedValues;    // Values to be displayed
+	//Product product;
+
+	public ProductListAdapter(Context context, List<Product> products) {
+		super(context, R.layout.list_view_item_product, products);
+		//this.mOriginalValues = products;
+		//this.mDisplayedValues = products;
+	}
+
 	@NonNull
 	@Override
 	public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -27,6 +41,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
 		}
 
 		Product product = this.getItem(position);
+		//product = this.getItem(position);
 		if (product != null) {
 			TextView lookupCodeTextView = (TextView) view.findViewById(R.id.list_view_item_product_lookup_code);
 			if (lookupCodeTextView != null) {
@@ -53,10 +68,52 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
 
 	DecimalFormat df = new DecimalFormat("#,###.##");
 
-	public ProductListAdapter(Context context, List<Product> products) {
-		super(context, R.layout.list_view_item_product, products);
-	}
+
+
+
+
 /*
+	private class ValueFilter extends Filter{
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+
+			FilterResults results = new FilterResults();
+
+			if (constraint != null && constraint.length() > 0) {
+
+				ArrayList<Product> filterList = new ArrayList<Product>();
+
+				for (int i = 0; i < mOriginalValues.size(); i++) {
+
+					if ((mOriginalValues.get(i).getLookupCode().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+
+						Product productData = new Product(mOriginalValues.get(i));
+						filterList.add(productData);
+					}
+				}
+
+				results.count = filterList.size();
+				results.values = filterList;
+
+			} else {
+
+				results.count = mOriginalValues.size();
+				results.values = mOriginalValues;
+
+			}
+			return results;
+		}
+		@Override
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+			mOriginalValues = (ArrayList<Product>) results.values;
+			notifyDataSetChanged();
+		}
+	}
+*/
+
+
+
+	/*
     @Override
     public Filter getFilter() {
         Filter filter = new Filter() {
@@ -78,7 +135,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
                     mOriginalValues = new ArrayList<Product>(mDisplayedValues); // saves the original data in mOriginalValues
                 }
 
-                ********
+                 ********
                  *
                  *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
                  *  else does the Filtering and returns FilteredArrList(Filtered)

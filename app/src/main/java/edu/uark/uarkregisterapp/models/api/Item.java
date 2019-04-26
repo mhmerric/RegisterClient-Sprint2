@@ -1,56 +1,100 @@
 package edu.uark.uarkregisterapp.models.api;
 
-public class Item {
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    public String ItemId;
-    public String ItemName;
-    public String Quantity;
-    public String Price;
+import java.util.UUID;
 
-    public Item() {
-        ItemId = "";
-        ItemName = "";
-        Quantity = "";
-        Price = "";
-    }
+import edu.uark.uarkregisterapp.models.api.fields.ItemFieldName;
+import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
+import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 
-    public String getStatus() {
-        return Status;
-    }
-    public void setStatus(String status) {
-        Status = status;
-    }
-    public String Status;
+public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item> {
 
-    public String getQuantity() {
-        return Quantity;
-    }
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
+    private String lookupCode;      // product NAme
+    private UUID itemId;            // productID
+    private int quantityPurchased;           // quantityPurchased
+    private int price;              // Single item's subtotal
+    private String paymentMethod;   // Payment Method
+
+    public Item(Product p) {
+        this.itemId = p.getId();
+        this.quantityPurchased = 0;
+        this.price = 0;
     }
 
-    public void setItemId(String ItemId){
-        this.ItemId=ItemId;
+
+    public String getLookupCode() {
+        return this.lookupCode;
     }
-    public String getItemId(){
-        return ItemId;
+    public Item setLookupCode(String lookupCode) {
+        this.lookupCode = lookupCode;
+        return this;
     }
 
-    public void setItemName(String ItemName){
-        this.ItemName=ItemName;
+    public Item setItemId(UUID itemId) {
+        this.itemId = itemId;
+        return this;
     }
-    public String getItemName(){
-        return ItemName;
+    public UUID getItemId(){
+        return this.itemId;
     }
 
-    public void setPrice(String Price){
-        this.Price=Price;
+    public Item setQuantity(int quantity) {
+        this.quantityPurchased = quantity;
+        return this;
     }
-    public String getPrice(){
-        return Price;
+    public int getQuantity() {
+        return quantityPurchased;
+    }
+
+    public Item setPrice(int price){
+        this.price = price;
+        return this;
+    }
+    public int getPrice(){
+        return this.price;
     }
 
     public String getJsonObject(){
-        return "{ItemId:"+ItemId+",ItemName:"+ItemName+",Quantity:"+Quantity+"}";
+        return "{ItemId:"+this.itemId+",Quantity:"+this.quantityPurchased+"}";
+    }
+
+    @Override
+    public JSONObject convertToJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put(ItemFieldName.ITEM_ID.getFieldName(), this.itemId.toString());
+            jsonObject.put(ItemFieldName.QUANTITY.getFieldName(), this.quantityPurchased);
+            jsonObject.put(ItemFieldName.PRICE.getFieldName(), this.price);
+            //jsonObject.put(ItemFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+    @Override
+    public Item loadFromJson(JSONObject rawJsonObject) {
+        String value = rawJsonObject.optString(ItemFieldName.ITEM_ID.getFieldName());
+        if (!StringUtils.isBlank(value)) {
+            this.itemId = UUID.fromString(value);
+        }
+
+        this.quantityPurchased = rawJsonObject.optInt(ItemFieldName.QUANTITY.getFieldName());
+        this.price = rawJsonObject.optInt(ItemFieldName.PRICE.getFieldName());
+
+        /*value = rawJsonObject.optString(ProductFieldName.CREATED_ON.getFieldName());
+        if (!StringUtils.isBlank(value)) {
+            try {
+                this.createdOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US).parse(value);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }*/
+        return this;
     }
 }

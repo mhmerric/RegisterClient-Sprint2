@@ -27,7 +27,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
         if (item != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
             if (nameTextView != null) {
-                nameTextView.setText(item.getItemName());
+                nameTextView.setText(item.getLookupCode());
             }
 
             TextView countTextView = (TextView) view.findViewById(R.id.tv_total);
