@@ -27,9 +27,9 @@ import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.api.Item;
 
 public class ProductsListingActivity extends AppCompatActivity {
-	//SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 		EditText theFilter = (EditText) findViewById(R.id.filter);
-		//searchView = (SearchView) findViewById(R.id.filter);
+
 
 		ActionBar actionBar = this.getSupportActionBar();
 		if (actionBar != null) {
@@ -46,14 +46,28 @@ public class ProductsListingActivity extends AppCompatActivity {
 		}
 
 		this.products = new ArrayList<>();
-		//this.filterProducts = new ArrayList<>();
+
 
 		this.productListAdapter = new ProductListAdapter(this, this.products);
 		this.getProductsListView().setAdapter(this.productListAdapter);
 
-		//this.getProductsListView().setTextFilterEnabled(true); // Enable filter
-
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), ItemViewActivity.class);
+
+				intent.putExtra(
+						getString(R.string.intent_extra_product),
+						new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+				);
+
+				startActivity(intent);
+			}
+		});
+
+
+		// Transition to ProductViewActivity
+		/*this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
@@ -65,7 +79,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 				startActivity(intent);
 			}
-		});
+		});*/
 
 		theFilter.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -112,6 +126,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 	public void viewCartButtonOnClick(View view) {
 		this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 	}
+
 
 	// Filtering
 	// **********************************************

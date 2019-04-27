@@ -9,6 +9,7 @@ import java.util.UUID;
 import edu.uark.uarkregisterapp.models.api.fields.ItemFieldName;
 import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
+import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item> {
 
@@ -18,7 +19,13 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
     private int price;              // Single item's subtotal
     private String paymentMethod;   // Payment Method
 
-    public Item(Product p) {
+    public Item (Product p) {
+        this.itemId = p.getId();
+        this.quantityPurchased = 0;
+        this.price = 0;
+    }
+
+    public Item (ProductTransition p) {
         this.itemId = p.getId();
         this.quantityPurchased = 0;
         this.price = 0;

@@ -34,6 +34,10 @@
             android:label="@string/title_activity_product_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ItemViewActivity"
+            android:label="@string/title_activity_item_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme.NoActionBar" />

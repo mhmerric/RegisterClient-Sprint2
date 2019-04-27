@@ -14,16 +14,16 @@ import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
     public static TextView tv_total;
     public static int total=0;
-    String jsonCartList;
 
-    private List<Item> items;
-    private CartListAdapter cartListAdapter;
+    //public static List<Item> selectedItems;
+    public CartListAdapter cartListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +37,25 @@ public class ShoppingCartActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        this.items = new ArrayList<>();
-        this.cartListAdapter = new CartListAdapter(this, this.items);
+        //this.selectedItems = new ArrayList<>();
+        this.cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
 
         this.getItemsView().setAdapter(this.cartListAdapter);
 
         tv_total = findViewById(R.id.tv_total);
 
 
-        //recyclerView = findViewById(R.id.list_view_items);
-        //recyclerView.setHasFixedSize(true);
-        //recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        //recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
+        /*recyclerView = findViewById(R.id.list_view_items);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        //cartListAdapter = new CartListAdapter(ShoppingCartActivity.this,Item.recycler_itemlist.setAdapter(cartListAdapter);
+        cartListAdapter = new CartListAdapter(ShoppingCartActivity.this,Item.recycler_itemlist.setAdapter(cartListAdapter);
 
-        //getIntentData();
+        getIntentData();
 
-        //calculateTotal();
+        calculateTotal();*/
 
     }
 
@@ -75,6 +75,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private ListView getItemsView() {
         return (ListView) this.findViewById(R.id.list_view_items);
     }
+
+    // Add selected product to selectedItems. Might need to move somewhere else
+    /*public void addToCart(ProductTransition p) {
+        Item item = new Item(p);
+        this.selectedItems.add(item);
+        this.cartListAdapter.notifyDataSetChanged();
+    }*/
 
     /*
     private void getIntentData(){
