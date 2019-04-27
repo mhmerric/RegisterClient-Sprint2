@@ -61,12 +61,11 @@
                         android:id="@+id/tv_quantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Rate"
-                        android:textAlignment="center"
                         android:layout_weight="1"
-                        android:textSize="13dp"
-                        />
+                        android:text="Qty"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="13dp" />
 
                     <TextView
                         android:id="@+id/tv_total"

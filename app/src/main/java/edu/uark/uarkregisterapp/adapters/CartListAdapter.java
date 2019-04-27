@@ -8,12 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.Item;
 
 public class CartListAdapter extends ArrayAdapter<Item> {
+
+    public static List<Item> selectedItems = new ArrayList<>();
+
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -27,17 +31,17 @@ public class CartListAdapter extends ArrayAdapter<Item> {
         if (item != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
             if (nameTextView != null) {
-                nameTextView.setText(item.getItemName());
+                nameTextView.setText(item.getLookupCode());
             }
 
             TextView countTextView = (TextView) view.findViewById(R.id.tv_total);
             if (countTextView != null) {
-                countTextView.setText(item.getPrice());
+                countTextView.setText(Integer.toString(item.getPrice()));
             }
 
             TextView quantityTextView = (TextView) view.findViewById(R.id.tv_quantity);
             if (quantityTextView != null) {
-                quantityTextView.setText(item.getQuantity());
+                quantityTextView.setText(Integer.toString(item.getQuantity()));
             }
         }
 

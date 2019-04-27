@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,10 @@ import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.api.Item;
 
 public class ProductsListingActivity extends AppCompatActivity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,20 +39,35 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 		EditText theFilter = (EditText) findViewById(R.id.filter);
 
+
 		ActionBar actionBar = this.getSupportActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		this.products = new ArrayList<>();
-		this.filterProducts = new ArrayList<>();
+
 
 		this.productListAdapter = new ProductListAdapter(this, this.products);
 		this.getProductsListView().setAdapter(this.productListAdapter);
 
-		this.getProductsListView().setTextFilterEnabled(true); // Enable filter
-
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), ItemViewActivity.class);
+
+				intent.putExtra(
+						getString(R.string.intent_extra_product),
+						new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+				);
+
+				startActivity(intent);
+			}
+		});
+
+
+		// Transition to ProductViewActivity
+		/*this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
@@ -61,7 +79,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 				startActivity(intent);
 			}
-		});
+		});*/
 
 		theFilter.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -71,7 +89,20 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				(ProductsListingActivity.this).productListAdapter.getFilter().filter(s.toString());
+				//(ProductsListingActivity.this).productListAdapter.getFilter().filter(s.toString());
+				String input = s.toString().toLowerCase();
+				List<Product> filteredList= new ArrayList<>();
+
+				for (Product p : products) {
+					if ((p.getLookupCode().toLowerCase()).startsWith(input.toLowerCase())) {
+
+						Product result = new Product(p);
+						filteredList.add(result);
+					}
+				}
+
+				updateList(filteredList);
+
 			}
 
 			@Override
@@ -95,6 +126,44 @@ public class ProductsListingActivity extends AppCompatActivity {
 	public void viewCartButtonOnClick(View view) {
 		this.startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
 	}
+
+
+	// Filtering
+	// **********************************************
+	public void updateList(List<Product> newList) {
+		if(newList.size() > 0) {
+			products.clear();
+			products.addAll(newList);
+			(this.productListAdapter).notifyDataSetChanged();
+		} else {
+			(new RetrieveProductsTask()).execute();
+		}
+	}
+/*
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+
+		String input = newText.toLowerCase();
+		List<Product> filteredList= new ArrayList<>();
+
+		for(Product p : products) {
+			if ((p.getLookupCode().toLowerCase()).contains(input.toLowerCase())) {
+
+				Product productData = new Product(p);
+				filteredList.add(productData);
+			}
+		}
+
+		this.updateList(filteredList);
+
+		return false;
+	}*/
+	// **********************************************
 
 	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
 		@Override
@@ -150,6 +219,6 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 
 	private List<Product> products;
-	private List<Product> filterProducts;
+	//private List<Product> filterProducts;
 	private ProductListAdapter productListAdapter;
 }
