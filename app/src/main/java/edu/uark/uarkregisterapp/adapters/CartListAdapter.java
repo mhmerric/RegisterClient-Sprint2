@@ -36,7 +36,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
             TextView countTextView = (TextView) view.findViewById(R.id.tv_total);
             if (countTextView != null) {
-                countTextView.setText(Integer.toString(item.getPrice()));
+                countTextView.setText("$" + Integer.toString(item.getPrice()));
             }
 
             TextView quantityTextView = (TextView) view.findViewById(R.id.tv_quantity);

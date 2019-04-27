@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -75,10 +76,9 @@ public class ItemViewActivity extends AppCompatActivity {
     }
 
     private TextView getProductPriceTextView() {
-        return (TextView) this.findViewById(R.id.text_view_label_subtotal);
+        return (TextView) this.findViewById(R.id.text_view_subtotal);
     }
 
-    // TODO: figure out how to pull input quantity
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
@@ -89,6 +89,10 @@ public class ItemViewActivity extends AppCompatActivity {
 
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
             CartListAdapter.selectedItems.add(item);
+            Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG).show();
+            //Toast toast = Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG);
+            //toast.setMargin(20,50);
+            //toast.show();
         }
     }
 }

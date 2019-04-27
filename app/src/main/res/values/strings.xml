@@ -33,7 +33,7 @@
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_label_item_lookup_code">Product Name:</string>
     <string name="text_view_label_item_select_quantity">Qty:</string>
-    <string name="text_view_label_item_subtotal">Subtotal:</string>
+    <string name="text_view_label_item_subtotal">Price:</string>
     <string name="edit_text_hint_employee_create_first_name">First name</string>
     <string name="edit_text_hint_employee_create_last_name">Last name</string>
     <string name="edit_text_hint_employee_create_password">Password</string>
