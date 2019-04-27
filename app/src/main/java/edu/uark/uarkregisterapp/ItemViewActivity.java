@@ -82,11 +82,10 @@ public class ItemViewActivity extends AppCompatActivity {
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
-        //item.setQuantity(Integer.parseInt(getProductLookupCodeTextView().getText().toString()));
+        item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
         // Calculate subtotal
-        //int subtotal = (item.getQuantity() * Integer.parseInt(getProductPriceTextView().getText().toString()));
-        //item.setPrice(subtotal);
-
+        int subtotal = (item.getQuantity() * item.getPrice());
+        item.setPrice(subtotal);
 
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
             CartListAdapter.selectedItems.add(item);
