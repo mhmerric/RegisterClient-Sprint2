@@ -27,8 +27,10 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
 
     public Item (ProductTransition p) {
         this.itemId = p.getId();
-        this.quantityPurchased = 0;
-        this.price = 0;
+        this.lookupCode = p.getLookupCode();
+        this.quantityPurchased = 1;
+        this.price = p.getPrice();
+        this.paymentMethod = "Cash";
     }
 
 

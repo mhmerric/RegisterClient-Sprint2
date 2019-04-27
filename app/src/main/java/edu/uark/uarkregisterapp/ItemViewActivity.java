@@ -70,6 +70,10 @@ public class ItemViewActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_view_lookup_code);
     }
 
+    private EditText getProductQuantityEditText() {
+        return (EditText) this.findViewById(R.id.edit_text_select_quantity);
+    }
+
     private TextView getProductPriceTextView() {
         return (TextView) this.findViewById(R.id.text_view_label_subtotal);
     }
@@ -78,10 +82,10 @@ public class ItemViewActivity extends AppCompatActivity {
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
-        item.setQuantity(Integer.parseInt(getProductLookupCodeTextView().getText().toString()));
+        //item.setQuantity(Integer.parseInt(getProductLookupCodeTextView().getText().toString()));
         // Calculate subtotal
-        int subtotal = (item.getQuantity() * Integer.parseInt(getProductPriceTextView().getText().toString()));
-        item.setPrice(subtotal);
+        //int subtotal = (item.getQuantity() * Integer.parseInt(getProductPriceTextView().getText().toString()));
+        //item.setPrice(subtotal);
 
 
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
