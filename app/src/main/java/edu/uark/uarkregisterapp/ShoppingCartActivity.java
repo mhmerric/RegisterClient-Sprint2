@@ -53,9 +53,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         cartListAdapter = new CartListAdapter(ShoppingCartActivity.this,Item.recycler_itemlist.setAdapter(cartListAdapter);
 
-        getIntentData();
+        getIntentData();*/
 
-        calculateTotal();*/
+        calculateTotal();
 
     }
 
@@ -89,13 +89,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
             // Get the Required Parameters for sending Order to server.
         }
     }
-
+    */
 
     public static void calculateTotal(){
         int i=0;
         total=0;
-        while(i<CartListAdapter.selecteditems.size()){
-            total=total + ( Integer.valueOf(ItemListAdapter.selecteditems.get(i).getRate()) * Integer.valueOf(ItemListAdapter.selecteditems.get(i).getQuantity()) );
+        while(i<CartListAdapter.selectedItems.size()){
+            total=total + ( Integer.valueOf(CartListAdapter.selectedItems.get(i).getPrice()) /* Integer.valueOf(ItemListAdapter.selecteditems.get(i).getQuantity())*/ );
             i++;
         }
         tv_total.setText(" $"+total);
