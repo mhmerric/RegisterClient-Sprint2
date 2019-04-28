@@ -62,7 +62,8 @@
         android:layout_gravity="center"
         android:text="@string/button_place_order"
         android:textColor="@android:color/white"
-        android:theme="@style/Theme.AppCompat"></Button>
+        android:theme="@style/Theme.AppCompat"
+        android:onClick="insertOrder"/>
 
 </RelativeLayout>
 

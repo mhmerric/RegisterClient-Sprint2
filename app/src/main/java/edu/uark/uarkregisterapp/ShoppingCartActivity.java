@@ -1,20 +1,34 @@
 package edu.uark.uarkregisterapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.content.DialogInterface;
+import android.app.AlertDialog;
 
 import android.widget.TextView;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.api.fields.TransactionFieldName;
+
+import com.google.gson.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -22,6 +36,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public static TextView tv_total;
     public static int total=0;
     public CartListAdapter cartListAdapter;
+    public static JsonArray jsonCartList = new JsonArray();
+    //private EmployeeTransition employeeTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        //this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
 
         this.cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
 
@@ -83,19 +101,32 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tv_total.setText(" $"+total);
     }
 
-    public void removeItem(Item item) {
+    public void removeItemFromList(View view) {
+        Item item = CartListAdapter.getitem();
         CartListAdapter.selectedItems.remove(item);
         this.cartListAdapter.notifyDataSetChanged();
         calculateTotal();
     }
 
-    /*
-    public void insertOrder(View view){
+
+    public void insertOrder(View view) {
 
         if(total>0){
 
             Gson gson = new Gson();
-            jsonCartList = gson.toJson(ItemListAdapter.selecteditems);
+
+            jsonCartList.add(gson.toJson(CartListAdapter.selectedItems));
+
+            JSONObject orderInfo = new JSONObject();
+            try {
+                orderInfo.put(TransactionFieldName.ITEMS.getFieldName(), jsonCartList);
+                orderInfo.put(TransactionFieldName.EMPLOYEE_ID.getFieldName(), MainActivity.employeeTransition.getEmployeeId());
+                orderInfo.put(TransactionFieldName.PAYMENT_METHOD.getFieldName(), "cash");
+                orderInfo.put(TransactionFieldName.TOTAL_PRICE.getFieldName(), this.total);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                 @Override
@@ -104,6 +135,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         case DialogInterface.BUTTON_POSITIVE:
                             //Yes button clicked
                             placeOrderRequest();
+                            startActivity(new Intent(getApplicationContext(), LandingActivity.class));
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -117,21 +149,19 @@ public class ShoppingCartActivity extends AppCompatActivity {
             builder.setMessage("Do you want to place Order ?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
 
-        }else{
+        } else {
             Toast.makeText(ShoppingCartActivity.this,"No items in Cart !",Toast.LENGTH_LONG).show();
         }
 
 
     }
 
-
-    private void placeOrderRequest(){
+    // TODO: implement placeOrder
+    private void placeOrderRequest() {
         //Send Request to Server with required Parameters
 
-   //jsonCartList - Consists of Objects of all product selected.
 
 
     }
-    */
 }
 

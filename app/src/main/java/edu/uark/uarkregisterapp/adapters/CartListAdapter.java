@@ -17,6 +17,7 @@ import edu.uark.uarkregisterapp.models.api.Item;
 public class CartListAdapter extends ArrayAdapter<Item> {
 
     public static List<Item> selectedItems = new ArrayList<>();
+    private static Item item;
 
     @NonNull
     @Override
@@ -27,7 +28,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
             view = inflater.inflate(R.layout.list_view_shopping_cart, parent, false);
         }
 
-        Item item = this.getItem(position);
+        item = this.getItem(position);
         if (item != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
             if (nameTextView != null) {
@@ -50,6 +51,10 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
     public CartListAdapter(Context context, List<Item> items) {
         super(context, R.layout.list_view_shopping_cart, items);
+    }
+
+    public static Item getitem() {
+        return item;
     }
 }
 
