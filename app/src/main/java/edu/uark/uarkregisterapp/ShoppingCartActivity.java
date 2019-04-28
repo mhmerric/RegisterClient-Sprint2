@@ -1,6 +1,7 @@
 package edu.uark.uarkregisterapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.api.services.TransactionService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.api.fields.TransactionFieldName;
@@ -35,7 +37,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     public static TextView tv_total;
     public static int total=0;
-    public CartListAdapter cartListAdapter;
+    public static CartListAdapter cartListAdapter;
     public static JsonArray jsonCartList = new JsonArray();
     //private EmployeeTransition employeeTransition;
 
@@ -53,9 +55,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         //this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
 
-        this.cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
+        cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
 
-        this.getItemsView().setAdapter(this.cartListAdapter);
+        this.getItemsView().setAdapter(cartListAdapter);
 
         tv_total = findViewById(R.id.tv_total);
 
@@ -101,6 +103,20 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tv_total.setText(" $"+total);
     }
 
+    /*public void removeItemFromList() {
+        //Item item = CartListAdapter.getitem();
+        //CartListAdapter.selectedItems.remove(item);
+        for(Item i : CartListAdapter.selectedItems) {
+            if(getItemsView().findViewById(R.id.chk_selectitem).isSelected()) {
+                CartListAdapter.selectedItems.remove(i);
+                cartListAdapter.notifyDataSetChanged();
+                calculateTotal();
+            }
+        }
+    }*/
+
+    // TODO: Fix removing items. only removes last item added
+
     public void removeItemFromList(View view) {
         Item item = CartListAdapter.getitem();
         CartListAdapter.selectedItems.remove(item);
@@ -117,7 +133,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
             jsonCartList.add(gson.toJson(CartListAdapter.selectedItems));
 
-            JSONObject orderInfo = new JSONObject();
+            final JSONObject orderInfo = new JSONObject();
             try {
                 orderInfo.put(TransactionFieldName.ITEMS.getFieldName(), jsonCartList);
                 orderInfo.put(TransactionFieldName.EMPLOYEE_ID.getFieldName(), MainActivity.employeeTransition.getEmployeeId());
@@ -134,8 +150,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
                             //Yes button clicked
-                            placeOrderRequest();
+                            placeOrderRequest(orderInfo);
                             startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+                            CartListAdapter.selectedItems.clear();
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -146,22 +163,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingCartActivity.this);
-            builder.setMessage("Do you want to place Order ?").setPositiveButton("Yes", dialogClickListener)
+            builder.setMessage("Do you want to place Order?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
 
         } else {
-            Toast.makeText(ShoppingCartActivity.this,"No items in Cart !",Toast.LENGTH_LONG).show();
+            Toast.makeText(ShoppingCartActivity.this,"No items in Cart!",Toast.LENGTH_LONG).show();
         }
 
 
     }
 
     // TODO: implement placeOrder
-    private void placeOrderRequest() {
+    private void placeOrderRequest(JSONObject order) {
         //Send Request to Server with required Parameters
-
+        //(new TransactionService()).createTransaction(order);
 
 
     }
+
 }
 

@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.R;
+import edu.uark.uarkregisterapp.ShoppingCartActivity;
 import edu.uark.uarkregisterapp.models.api.Item;
 
 public class CartListAdapter extends ArrayAdapter<Item> {
@@ -21,7 +23,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
@@ -44,6 +46,18 @@ public class CartListAdapter extends ArrayAdapter<Item> {
             if (quantityTextView != null) {
                 quantityTextView.setText(Integer.toString(item.getQuantity()));
             }
+
+            /*final CheckBox deleteItemCheckBox = (CheckBox) view.findViewById(R.id.chk_selectitem);
+            deleteItemCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteItemCheckBox.setChecked(true);
+                    ShoppingCartActivity.;
+
+                }
+            });*/
+
+
         }
 
         return view;
@@ -56,6 +70,17 @@ public class CartListAdapter extends ArrayAdapter<Item> {
     public static Item getitem() {
         return item;
     }
+    /*
+    public final int getItemPosition() {
+        Item i = this.getItem(position);
+    }
+
+    /*public void removeItemFromList(Item item) {
+        //Item item = CartListAdapter.getitem();
+        CartListAdapter.selectedItems.remove(item);
+        this.cartListAdapter.notifyDataSetChanged();
+        calculateTotal();
+    }*/
 }
 
 
