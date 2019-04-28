@@ -3,7 +3,7 @@ package edu.uark.uarkregisterapp.models.api.services;
 import org.json.JSONObject;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
-import edu.uark.uarkregisterapp.models.api.Employee;
+import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.enums.ApiObject;
 import edu.uark.uarkregisterapp.models.api.enums.TransactionApiMethod;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
@@ -13,20 +13,20 @@ public class TransactionService extends BaseRemoteService {
 
     public TransactionService() { super(ApiObject.TRANSACTION); }
 
-    public ApiResponse<Employee> createTransaction(JSONObject order) {
+    public ApiResponse<Transaction> createTransaction(Transaction transaction) {
         return this.readTransactionDetailsFromResponse(
-                this.<Employee>performPostRequest(
+                this.<Transaction>performPostRequest(
                         this.buildPath(
                                 (new PathElementInterface[] {TransactionApiMethod.CREATE_TRANSACTION})
                         ),
-                        order
+                        transaction.convertToJson()
                 )
         );
     }
 
-    private ApiResponse<Employee> readTransactionDetailsFromResponse(ApiResponse<Employee> apiResponse) {
+    private ApiResponse<Transaction> readTransactionDetailsFromResponse(ApiResponse<Transaction> apiResponse) {
         return this.readDetailsFromResponse(
-                apiResponse, (new Employee())
+                apiResponse, (new Transaction())
         );
     }
 

@@ -15,7 +15,7 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
 
     private String lookupCode;      // product NAme
     private UUID itemId;            // productID
-    private int quantityPurchased;           // quantityPurchased
+    private int quantityPurchased;  // quantityPurchased
     private int price;              // Single item's subtotal
     private String paymentMethod;   // Payment Method
 
@@ -24,7 +24,7 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
         this.lookupCode = p.getLookupCode();
         this.quantityPurchased = 1;
         this.price = p.getPrice();
-        this.paymentMethod = "Cash";
+        //this.paymentMethod = "Cash";
     }
 
 

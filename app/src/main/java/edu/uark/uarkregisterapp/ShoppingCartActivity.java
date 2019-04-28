@@ -19,7 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
+import edu.uark.uarkregisterapp.models.api.ApiResponse;
+import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.services.TransactionService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
@@ -39,6 +43,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public static int total=0;
     public static CartListAdapter cartListAdapter;
     public static JsonArray jsonCartList = new JsonArray();
+
+    public static int getTotal() {
+        return total;
+    }
     //private EmployeeTransition employeeTransition;
 
     @Override
@@ -129,7 +137,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         if(total>0){
 
-            Gson gson = new Gson();
+            /*Gson gson = new Gson();
 
             jsonCartList.add(gson.toJson(CartListAdapter.selectedItems));
 
@@ -141,7 +149,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 orderInfo.put(TransactionFieldName.TOTAL_PRICE.getFieldName(), this.total);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
+
+            //final Transaction transaction = new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getId(), this.total);
+
 
 
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -150,9 +161,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
                             //Yes button clicked
-                            placeOrderRequest(orderInfo);
-                            startActivity(new Intent(getApplicationContext(), LandingActivity.class));
-                            CartListAdapter.selectedItems.clear();
+                            //placeOrderRequest(orderInfo);
+                            //startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+                            //CartListAdapter.selectedItems.clear();
+                            new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getId(), ShoppingCartActivity.getTotal()));
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -179,6 +191,51 @@ public class ShoppingCartActivity extends AppCompatActivity {
         //(new TransactionService()).createTransaction(order);
 
 
+    }
+
+
+    private class CreateTransactionTask extends AsyncTask<Transaction, Void, ApiResponse<Transaction>> {
+        // Creating employee alert
+        @Override
+        protected void onPreExecute() {
+            this.createTransactionAlert = new android.support.v7.app.AlertDialog.Builder(ShoppingCartActivity.this)
+                    .setMessage(R.string.alert_dialog_create_transaction)
+                    .create();
+            this.createTransactionAlert.show();
+        }
+
+        // Create Employee
+        @Override
+        protected ApiResponse<Transaction> doInBackground(Transaction... transactions) {
+            if (transactions.length > 0) {
+                return (new TransactionService()).createTransaction(transactions[0]);
+            } else {
+                return (new ApiResponse<Transaction>()).setValidResponse(false);
+            }
+        }
+
+        // Check response
+        @Override
+        protected void onPostExecute(ApiResponse<Transaction> apiResponse) {
+            this.createTransactionAlert.dismiss();
+
+            if (!apiResponse.isValidResponse()) {
+                new android.support.v7.app.AlertDialog.Builder(ShoppingCartActivity.this)
+                        .setMessage(R.string.alert_dialog_create_transaction_failed)
+                        .create()
+                        .show();
+                return;
+            }
+
+            Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
+
+            // TODO: create receipt screen
+            //intent.putExtra(getString(R.string.intent_extra_employee), new EmployeeTransition(apiResponse.getData()));
+
+            startActivity(intent);
+        }
+
+        private android.support.v7.app.AlertDialog createTransactionAlert;
     }
 
 }
