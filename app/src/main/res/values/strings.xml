@@ -33,7 +33,7 @@
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_label_item_lookup_code">Product Name:</string>
     <string name="text_view_label_item_select_quantity">Qty:</string>
-    <string name="text_view_label_item_subtotal">Subtotal:</string>
+    <string name="text_view_label_item_subtotal">Price:</string>
     <string name="edit_text_hint_employee_create_first_name">First name</string>
     <string name="edit_text_hint_employee_create_last_name">Last name</string>
     <string name="edit_text_hint_employee_create_password">Password</string>
@@ -59,6 +59,9 @@
     <string name="alert_dialog_employee_create_validation_password">Password may not be empty.</string>
     <string name="alert_dialog_employee_create_validation_password_invalid">Passwords do not match.</string>
     <string name="alert_dialog_functionality_not_available">This functionality is not yet available.</string>
+    <string name="alert_dialog_create_transaction">Placing Order&#8320;</string>
+    <string name="alert_dialog_create_transaction_failed">This order could not be placed. Please try again.</string>
+    <string name="alert_dialog_create_transaction_success">Your order has been placed!</string>
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>

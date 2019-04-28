@@ -2,11 +2,8 @@ package edu.uark.uarkregisterapp.models.api.enums;
 
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
-public enum ApiObject implements PathElementInterface {
-    NONE(""),
-    PRODUCT("product/"),
-    EMPLOYEE("employee/"),
-    TRANSACTION("transaction/");
+public enum TransactionApiMethod implements PathElementInterface {
+    CREATE_TRANSACTION("createTransaction");
 
     @Override
     public String getPathValue() {
@@ -15,7 +12,7 @@ public enum ApiObject implements PathElementInterface {
 
     private String value;
 
-    ApiObject(String value) {
+    TransactionApiMethod(String value) {
         this.value = value;
     }
 }

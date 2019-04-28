@@ -15,22 +15,16 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
 
     private String lookupCode;      // product NAme
     private UUID itemId;            // productID
-    private int quantityPurchased;           // quantityPurchased
+    private int quantityPurchased;  // quantityPurchased
     private int price;              // Single item's subtotal
     private String paymentMethod;   // Payment Method
-
-    public Item (Product p) {
-        this.itemId = p.getId();
-        this.quantityPurchased = 0;
-        this.price = 0;
-    }
 
     public Item (ProductTransition p) {
         this.itemId = p.getId();
         this.lookupCode = p.getLookupCode();
         this.quantityPurchased = 1;
         this.price = p.getPrice();
-        this.paymentMethod = "Cash";
+        //this.paymentMethod = "Cash";
     }
 
 
@@ -78,6 +72,7 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
             jsonObject.put(ItemFieldName.ITEM_ID.getFieldName(), this.itemId.toString());
             jsonObject.put(ItemFieldName.QUANTITY.getFieldName(), this.quantityPurchased);
             jsonObject.put(ItemFieldName.PRICE.getFieldName(), this.price);
+            //jsonObject.put(ItemFieldName.PAYMENT_METHOD.getFieldName(), this.paymentMethod);
             //jsonObject.put(ItemFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
         } catch (JSONException e) {
             e.printStackTrace();

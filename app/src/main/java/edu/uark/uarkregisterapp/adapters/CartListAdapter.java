@@ -6,28 +6,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uark.uarkregisterapp.R;
+import edu.uark.uarkregisterapp.ShoppingCartActivity;
 import edu.uark.uarkregisterapp.models.api.Item;
 
 public class CartListAdapter extends ArrayAdapter<Item> {
 
     public static List<Item> selectedItems = new ArrayList<>();
+    private static Item item;
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
             view = inflater.inflate(R.layout.list_view_shopping_cart, parent, false);
         }
 
-        Item item = this.getItem(position);
+        item = this.getItem(position);
         if (item != null) {
             TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
             if (nameTextView != null) {
@@ -36,13 +39,25 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
             TextView countTextView = (TextView) view.findViewById(R.id.tv_total);
             if (countTextView != null) {
-                countTextView.setText(Integer.toString(item.getPrice()));
+                countTextView.setText("$" + Integer.toString(item.getPrice()));
             }
 
             TextView quantityTextView = (TextView) view.findViewById(R.id.tv_quantity);
             if (quantityTextView != null) {
                 quantityTextView.setText(Integer.toString(item.getQuantity()));
             }
+
+            /*final CheckBox deleteItemCheckBox = (CheckBox) view.findViewById(R.id.chk_selectitem);
+            deleteItemCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteItemCheckBox.setChecked(true);
+                    ShoppingCartActivity.;
+
+                }
+            });*/
+
+
         }
 
         return view;
@@ -51,6 +66,21 @@ public class CartListAdapter extends ArrayAdapter<Item> {
     public CartListAdapter(Context context, List<Item> items) {
         super(context, R.layout.list_view_shopping_cart, items);
     }
+
+    public static Item getitem() {
+        return item;
+    }
+    /*
+    public final int getItemPosition() {
+        Item i = this.getItem(position);
+    }
+
+    /*public void removeItemFromList(Item item) {
+        //Item item = CartListAdapter.getitem();
+        CartListAdapter.selectedItems.remove(item);
+        this.cartListAdapter.notifyDataSetChanged();
+        calculateTotal();
+    }*/
 }
 
 

@@ -6,6 +6,7 @@ public enum ItemFieldName implements FieldNameInterface {
     ITEM_ID("itemId"),
     QUANTITY("quantity"),
     PRICE("price"),
+    PAYMENT_METHOD("paymentMethod"),
     API_REQUEST_STATUS("apiRequestStatus"),
     API_REQUEST_MESSAGE("apiRequestMessage");
 

@@ -119,7 +119,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             this.createEmployeeAlert.show();
         }
 
-        // Check for valid response
+        // Create Employee
         @Override
         protected ApiResponse<Employee> doInBackground(Employee... employees) {
             if (employees.length > 0) {
@@ -129,7 +129,7 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             }
         }
 
-        // Display alert or create employee
+        // Check response
         @Override
         protected void onPostExecute(ApiResponse<Employee> apiResponse) {
             this.createEmployeeAlert.dismiss();
