@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.services.TransactionService;
@@ -61,17 +63,31 @@ public class ShoppingCartActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        //this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
-
         cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
 
         this.getItemsView().setAdapter(cartListAdapter);
 
         tv_total = findViewById(R.id.tv_total);
 
+        /*this.getItemsView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnItemClickListener() {
+            /*@Override
+            public void onClick(View v) {
+                removeItemFromList((Item) getItemsView().getItemAtPosition(position));
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShoppingCartActivity.removeItemFromList((Item) getItemsView().getItemAtPosition(position));
+            }
+        });*/
+
         //getIntentData();
 
         calculateTotal();
+
+    }
+
+    public static void removeItemFromList(Item i) {
 
     }
 
@@ -133,6 +149,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
 
+
+
     public void insertOrder(View view) {
 
         if(total>0){
@@ -185,7 +203,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     }
 
-    // TODO: implement placeOrder
     private void placeOrderRequest(JSONObject order) {
         //Send Request to Server with required Parameters
         //(new TransactionService()).createTransaction(order);
@@ -195,7 +212,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
 
     private class CreateTransactionTask extends AsyncTask<Transaction, Void, ApiResponse<Transaction>> {
-        // Creating employee alert
+        // Creating popup message
         @Override
         protected void onPreExecute() {
             this.createTransactionAlert = new android.support.v7.app.AlertDialog.Builder(ShoppingCartActivity.this)
@@ -204,7 +221,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             this.createTransactionAlert.show();
         }
 
-        // Create Employee
+        // Create Transaction
         @Override
         protected ApiResponse<Transaction> doInBackground(Transaction... transactions) {
             if (transactions.length > 0) {

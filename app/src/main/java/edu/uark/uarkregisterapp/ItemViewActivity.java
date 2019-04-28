@@ -1,5 +1,6 @@
 package edu.uark.uarkregisterapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,21 @@ public class ItemViewActivity extends AppCompatActivity {
         }
 
         this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+
+        // Transition to ProductViewActivity
+		/*this.getUpdateProductButton().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
+
+				intent.putExtra(
+					getString(R.string.intent_extra_product),
+					new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+				);
+
+				startActivity(intent);
+			}
+		});*/
 
     }
 
@@ -77,6 +93,10 @@ public class ItemViewActivity extends AppCompatActivity {
 
     private TextView getProductPriceTextView() {
         return (TextView) this.findViewById(R.id.text_view_subtotal);
+    }
+
+    public void getUpdateProductButtonOnClick(View view) {
+        this.startActivity(new Intent(getApplicationContext(), ProductViewActivity.class));
     }
 
     // TODO: add error checking for no quantity input

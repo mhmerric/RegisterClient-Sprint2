@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
     }
 
+    public void productsListingUpdateActivityButtonOnClick(View view) {
+        this.startActivity(new Intent(getApplicationContext(),ProductsListingUpdateActivity.class));
+    }
+
     public void productSalesReportButtonOnClick(View view) {
         this.displayFunctionalityNotAvailableDialog();
     }
