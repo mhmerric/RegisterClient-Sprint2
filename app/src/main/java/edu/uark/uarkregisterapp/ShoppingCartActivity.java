@@ -3,6 +3,7 @@ package edu.uark.uarkregisterapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -24,7 +25,7 @@ import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.Item;
-import edu.uark.uarkregisterapp.models.api.Product;
+import edu.uark.uarkregisterapp.models.api.Receipt;
 import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.services.TransactionService;
@@ -46,12 +47,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public static int total = 0;
     public int itemPosition = 0;
     public static CartListAdapter cartListAdapter;
-    public static JsonArray jsonCartList = new JsonArray();
+    //public static JsonArray jsonCartList = new JsonArray();
 
     public static int getTotal() {
         return total;
     }
-    //private EmployeeTransition employeeTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,37 +71,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         tv_total = findViewById(R.id.tv_total);
 
-        /*this.getCardView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView lookupCode = view.findViewById(R.id.tv_name);
-                for(Item i: CartListAdapter.selectedItems) {
-                    if(i.getLookupCode() == lookupCode.toString()) {
-                        CartListAdapter.selectedItems.remove(i);
-                    }
-                }
-            }
-        });
+        //getIntentData();
 
-        /*this.getItemsView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnItemClickListener() {
-            /*@Override
-            public void onClick(View v) {
-                removeItemFromList((Item) getItemsView().getItemAtPosition(position));
-            }
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShoppingCartActivity.removeItemFromList((Item) getItemsView().getItemAtPosition(position));
-            }
-        });*/
-
-                //getIntentData();
-
-                calculateTotal();
-
-    }
-
-    public static void removeItemFromList(Item i) {
+        calculateTotal();
 
     }
 
@@ -122,9 +94,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         return (ListView) this.findViewById(R.id.list_view_items);
     }
 
-    private CardView getCardView() { return (CardView) this.findViewById(R.id.card_myevent); }
-
-
     /*
     private void getIntentData(){
         if(getIntent()!=null && getIntent().getExtras()!=null){
@@ -142,29 +111,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
         tv_total.setText(" $"+total);
     }
-
-    /*public void removeItemFromList() {
-        //Item item = CartListAdapter.getitem();
-        //CartListAdapter.selectedItems.remove(item);
-        for(Item i : CartListAdapter.selectedItems) {
-            if(getItemsView().findViewById(R.id.chk_selectitem).isSelected()) {
-                CartListAdapter.selectedItems.remove(i);
-                cartListAdapter.notifyDataSetChanged();
-                calculateTotal();
-            }
-        }
-    }*/
-
-    // TODO: Fix removing items. only removes last item added
-
-    public void removeItemFromList(View view) {
-        Item item = CartListAdapter.selectedItems.get(itemPosition);
-        CartListAdapter.selectedItems.remove(item);
-        this.cartListAdapter.notifyDataSetChanged();
-        calculateTotal();
-    }
-
-
 
 
     public void insertOrder(View view) {
@@ -260,10 +206,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 return;
             }
 
-            Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
-
+            Intent intent = new Intent(getApplicationContext(), ReceiptActivity.class);
+            Transaction t = new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal());
+            //t.setSaleId(apiResponse.saleId);
             // TODO: create receipt screen
-            //intent.putExtra(getString(R.string.intent_extra_employee), new EmployeeTransition(apiResponse.getData()));
+            //intent.putExtra("transaction", (Parcelable) new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal()));
+            // TODO: add saleId to intent
+            //intent.putExtra("saleId", )
+            Receipt receipt = new Receipt();
+            //intent.putExtra("receipt", receipt.addAll(apiResponse.getData()));
 
             startActivity(intent);
         }

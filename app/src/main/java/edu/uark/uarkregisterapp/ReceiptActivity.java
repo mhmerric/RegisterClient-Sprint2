@@ -1,6 +1,5 @@
 package edu.uark.uarkregisterapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,21 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.UUID;
-
-import org.apache.commons.lang3.StringUtils;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
-import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
-import edu.uark.uarkregisterapp.ShoppingCartActivity;
 
-
-public class ItemViewActivity extends AppCompatActivity {
-
+public class ReceiptActivity extends AppCompatActivity {
     private ProductTransition productTransition;
 
     @Override
@@ -39,7 +30,7 @@ public class ItemViewActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+        this.productTransition = this.getIntent().getParcelableExtra("transaction");
 
     }
 
@@ -82,24 +73,22 @@ public class ItemViewActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_view_subtotal);
     }
 
+    // TODO: add error checking for no quantity input
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
-        if (StringUtils.isBlank(getProductQuantityEditText().getText().toString())) {
-            item.setQuantity(1);
-        } else {
-            item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
-        }
+        item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
         // Calculate subtotal
         int subtotal = (item.getQuantity() * item.getPrice());
         item.setPrice(subtotal);
 
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
             CartListAdapter.selectedItems.add(item);
-            Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_SHORT).show();
             //Toast toast = Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG);
             //toast.setMargin(20,50);
             //toast.show();
         }
     }
+
 }
