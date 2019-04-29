@@ -18,7 +18,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
+import edu.uark.uarkregisterapp.adapters.ProductsListUpdateAdapter;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
@@ -28,7 +28,7 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products_listing);
+        setContentView(R.layout.activity_update_products_listing);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         EditText theFilter = (EditText) findViewById(R.id.filter);
@@ -42,8 +42,8 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
         this.products = new ArrayList<>();
 
 
-        this.productListAdapter = new ProductListAdapter(this, this.products);
-        this.getProductsListView().setAdapter(this.productListAdapter);
+        this.productsListUpdateAdapter = new ProductsListUpdateAdapter(this, this.products);
+        this.getProductsListView().setAdapter(this.productsListUpdateAdapter);
 
         /*this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -128,7 +128,7 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
         if(newList.size() > 0) {
             products.clear();
             products.addAll(newList);
-            (this.productListAdapter).notifyDataSetChanged();
+            (this.productsListUpdateAdapter).notifyDataSetChanged();
         } else {
             (new ProductsListingUpdateActivity.RetrieveProductsTask()).execute();
         }
@@ -180,7 +180,7 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ApiResponse<List<Product>> apiResponse) {
             if (apiResponse.isValidResponse()) {
-                productListAdapter.notifyDataSetChanged();
+                productsListUpdateAdapter.notifyDataSetChanged();
             }
 
             this.loadingProductsAlert.dismiss();
@@ -214,5 +214,5 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
 
     private List<Product> products;
     //private List<Product> filterProducts;
-    private ProductListAdapter productListAdapter;
+    private ProductsListUpdateAdapter productsListUpdateAdapter;
 }

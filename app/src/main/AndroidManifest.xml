@@ -42,6 +42,14 @@
             android:label="@string/title_activity_product_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ReportProductsActivity"
+            android:label="Product Sales Report"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="edu.uark.uarkregisterapp.LandingActivity" />
+        </activity>
+        <activity
             android:name=".ItemViewActivity"
             android:label="@string/title_activity_item_view"
             android:theme="@style/AppTheme.NoActionBar" />
