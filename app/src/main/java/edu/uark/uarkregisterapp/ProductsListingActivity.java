@@ -92,6 +92,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 				//(ProductsListingActivity.this).productListAdapter.getFilter().filter(s.toString());
 				String input = s.toString().toLowerCase();
 				List<Product> filteredList= new ArrayList<>();
+				//(new RetrieveProductsTask()).execute();
 
 				for (Product p : products) {
 					if ((p.getLookupCode().toLowerCase()).startsWith(input.toLowerCase())) {
