@@ -3,7 +3,7 @@ package edu.uark.uarkregisterapp.models.api.fields;
 import edu.uark.uarkregisterapp.models.api.interfaces.FieldNameInterface;
 
 public enum ItemFieldName implements FieldNameInterface {
-    ITEM_ID("itemId"),
+    ITEM_ID("productId"),
     QUANTITY("quantity"),
     PRICE("price"),
     PAYMENT_METHOD("paymentMethod"),

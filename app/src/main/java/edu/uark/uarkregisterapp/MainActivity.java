@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cashierSalesReportButtonOnClick(View view) {
-        this.displayFunctionalityNotAvailableDialog();
+        this.startActivity(new Intent(getApplicationContext(),ReportCashierActivity.class));
     }
 
     public void createEmployeeButtonOnClick(View view) {
