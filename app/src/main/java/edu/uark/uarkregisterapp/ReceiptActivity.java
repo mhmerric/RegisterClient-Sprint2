@@ -73,22 +73,4 @@ public class ReceiptActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_view_subtotal);
     }
 
-    // TODO: add error checking for no quantity input
-    public void addToCart(View view) {
-        Item item = new Item(productTransition);
-        // Set quantity
-        item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
-        // Calculate subtotal
-        int subtotal = (item.getQuantity() * item.getPrice());
-        item.setPrice(subtotal);
-
-        if(CartListAdapter.selectedItems.indexOf(item) == -1) {
-            CartListAdapter.selectedItems.add(item);
-            //Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_SHORT).show();
-            //Toast toast = Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG);
-            //toast.setMargin(20,50);
-            //toast.show();
-        }
-    }
-
 }

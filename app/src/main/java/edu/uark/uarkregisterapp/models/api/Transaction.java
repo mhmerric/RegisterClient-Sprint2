@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import org.json.JSONArray;
+
+import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.fields.TransactionFieldName;
 import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
@@ -50,8 +53,17 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
         try {
             // convert items to json array
             //Gson gson = new Gson();
-            String items = new Gson().toJson(this.selectedItems);
+            //String items = new Gson().toJson(this.selectedItems);
             //items = this.selectedItems.
+            JSONArray items = new JSONArray();
+            for(Item i: CartListAdapter.selectedItems) {
+                JSONObject item = new JSONObject();
+                item.put("productId", i.getItemId());
+                item.put("quantityPurchased", i.getQuantity());
+                item.put("subtotal", i.getPrice());
+                items.put(item);
+            }
+
             // put attribute in JSONObject
             transaction.put(TransactionFieldName.ITEMS.getFieldName(), items);
             transaction.put(TransactionFieldName.EMPLOYEE_ID.getFieldName(), Integer.parseInt(this.employeeId));

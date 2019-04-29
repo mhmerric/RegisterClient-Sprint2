@@ -115,7 +115,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     public void insertOrder(View view) {
 
-        if(total>0){
+        if(CartListAdapter.selectedItems.size() > 0){
 
             /*Gson gson = new Gson();
 
