@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.DialogInterface;
@@ -22,6 +24,7 @@ import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.api.services.TransactionService;
@@ -40,7 +43,8 @@ import org.json.JSONObject;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     public static TextView tv_total;
-    public static int total=0;
+    public static int total = 0;
+    public int itemPosition = 0;
     public static CartListAdapter cartListAdapter;
     public static JsonArray jsonCartList = new JsonArray();
 
@@ -61,17 +65,43 @@ public class ShoppingCartActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        //this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
-
         cartListAdapter = new CartListAdapter(this, CartListAdapter.selectedItems);
 
         this.getItemsView().setAdapter(cartListAdapter);
 
         tv_total = findViewById(R.id.tv_total);
 
-        //getIntentData();
+        /*this.getCardView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView lookupCode = view.findViewById(R.id.tv_name);
+                for(Item i: CartListAdapter.selectedItems) {
+                    if(i.getLookupCode() == lookupCode.toString()) {
+                        CartListAdapter.selectedItems.remove(i);
+                    }
+                }
+            }
+        });
 
-        calculateTotal();
+        /*this.getItemsView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnItemClickListener() {
+            /*@Override
+            public void onClick(View v) {
+                removeItemFromList((Item) getItemsView().getItemAtPosition(position));
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShoppingCartActivity.removeItemFromList((Item) getItemsView().getItemAtPosition(position));
+            }
+        });*/
+
+                //getIntentData();
+
+                calculateTotal();
+
+    }
+
+    public static void removeItemFromList(Item i) {
 
     }
 
@@ -91,6 +121,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private ListView getItemsView() {
         return (ListView) this.findViewById(R.id.list_view_items);
     }
+
+    private CardView getCardView() { return (CardView) this.findViewById(R.id.card_myevent); }
 
 
     /*
@@ -126,11 +158,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
     // TODO: Fix removing items. only removes last item added
 
     public void removeItemFromList(View view) {
-        Item item = CartListAdapter.getitem();
+        Item item = CartListAdapter.selectedItems.get(itemPosition);
         CartListAdapter.selectedItems.remove(item);
         this.cartListAdapter.notifyDataSetChanged();
         calculateTotal();
     }
+
+
 
 
     public void insertOrder(View view) {
@@ -164,7 +198,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                             //placeOrderRequest(orderInfo);
                             //startActivity(new Intent(getApplicationContext(), LandingActivity.class));
                             //CartListAdapter.selectedItems.clear();
-                            new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getId(), ShoppingCartActivity.getTotal()));
+                            new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal()));
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -185,7 +219,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     }
 
-    // TODO: implement placeOrder
     private void placeOrderRequest(JSONObject order) {
         //Send Request to Server with required Parameters
         //(new TransactionService()).createTransaction(order);
@@ -195,7 +228,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
 
     private class CreateTransactionTask extends AsyncTask<Transaction, Void, ApiResponse<Transaction>> {
-        // Creating employee alert
+        // Creating popup message
         @Override
         protected void onPreExecute() {
             this.createTransactionAlert = new android.support.v7.app.AlertDialog.Builder(ShoppingCartActivity.this)
@@ -204,7 +237,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             this.createTransactionAlert.show();
         }
 
-        // Create Employee
+        // Create Transaction
         @Override
         protected ApiResponse<Transaction> doInBackground(Transaction... transactions) {
             if (transactions.length > 0) {

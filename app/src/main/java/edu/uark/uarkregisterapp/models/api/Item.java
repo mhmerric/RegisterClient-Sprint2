@@ -19,12 +19,19 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
     private int price;              // Single item's subtotal
     private String paymentMethod;   // Payment Method
 
-    public Item (ProductTransition p) {
+    public Item(ProductTransition p) {
         this.itemId = p.getId();
         this.lookupCode = p.getLookupCode();
         this.quantityPurchased = 1;
         this.price = p.getPrice();
         //this.paymentMethod = "Cash";
+    }
+
+    public Item(Item i) {
+        this.itemId = i.getItemId();
+        this.lookupCode = i.getLookupCode();
+        this.quantityPurchased = i.getQuantity();
+        this.price = i.getPrice();
     }
 
 

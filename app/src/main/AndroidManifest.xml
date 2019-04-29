@@ -30,6 +30,14 @@
                 android:value="edu.uark.uarkregisterapp.LandingActivity" />
         </activity>
         <activity
+            android:name=".ProductsListingUpdateActivity"
+            android:label="@string/title_activity_products_listing"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.uark.uarkregisterapp.LandingActivity" />
+        </activity>
+        <activity
             android:name=".ProductViewActivity"
             android:label="@string/title_activity_product_view"
             android:theme="@style/AppTheme.NoActionBar" />

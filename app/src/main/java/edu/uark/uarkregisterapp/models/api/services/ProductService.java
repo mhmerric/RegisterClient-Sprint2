@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
+import java.net.MalformedURLException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,11 +65,7 @@ public class ProductService extends BaseRemoteService {
 
 	public ApiResponse<Product> updateProduct(Product product) {
 		return this.readProductDetailsFromResponse(
-			this.<Product>performPutRequest(
-				this.buildPath(product.getId())
-				, product.convertToJson()
-			)
-		);
+			this.<Product>performPutRequest(this.buildPath(product.getId()), product.convertToJson()));
 	}
 
 	public ApiResponse<Product> createProduct(Product product) {
@@ -99,4 +98,6 @@ public class ProductService extends BaseRemoteService {
 	}
 
 	public ProductService() { super(ApiObject.PRODUCT); }
+
+
 }

@@ -16,12 +16,12 @@ import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 
 public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterface<Transaction> {
     private List<Item> selectedItems;
-    private UUID employeeId;
+    private String employeeId;
     private int total;
     private String paymentMethod;
 
 
-    public Transaction(List<Item> selectedItems, UUID employeeId, int total) {
+    public Transaction(List<Item> selectedItems, String employeeId, int total) {
         this.selectedItems = new ArrayList<>();
         this.selectedItems = selectedItems;
         this.employeeId = employeeId;
@@ -31,7 +31,8 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 
     public Transaction() {
         this.selectedItems = new ArrayList<>();
-        this.employeeId = new UUID(0,0);
+        //this.employeeId = new UUID(0,0);
+        this.employeeId = "";
         this.total = 0;
         this.paymentMethod = "cash";
     }
