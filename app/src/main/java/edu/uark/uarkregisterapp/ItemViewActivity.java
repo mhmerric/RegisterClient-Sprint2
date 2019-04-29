@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -82,7 +85,9 @@ public class ItemViewActivity extends AppCompatActivity {
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
-        item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
+        if (StringUtils.isBlank(getProductQuantityEditText().getText().toString()))
+            item.setQuantity(1);
+        else item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
         // Calculate subtotal
         int subtotal = (item.getQuantity() * item.getPrice());
         item.setPrice(subtotal);
