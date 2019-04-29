@@ -42,7 +42,8 @@ import org.json.JSONObject;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     public static TextView tv_total;
-    public static int total=0;
+    public static int total = 0;
+    public int itemPosition = 0;
     public static CartListAdapter cartListAdapter;
     public static JsonArray jsonCartList = new JsonArray();
 
@@ -68,6 +69,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
         this.getItemsView().setAdapter(cartListAdapter);
 
         tv_total = findViewById(R.id.tv_total);
+
+        this.getItemsView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                itemPosition = position;
+            }
+        });
 
         /*this.getItemsView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnItemClickListener() {
             /*@Override
@@ -142,7 +150,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     // TODO: Fix removing items. only removes last item added
 
     public void removeItemFromList(View view) {
-        Item item = CartListAdapter.getitem();
+        Item item = CartListAdapter.selectedItems.get(itemPosition);
         CartListAdapter.selectedItems.remove(item);
         this.cartListAdapter.notifyDataSetChanged();
         calculateTotal();
@@ -182,7 +190,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                             //placeOrderRequest(orderInfo);
                             //startActivity(new Intent(getApplicationContext(), LandingActivity.class));
                             //CartListAdapter.selectedItems.clear();
-                            new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getId(), ShoppingCartActivity.getTotal()));
+                            new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal()));
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:

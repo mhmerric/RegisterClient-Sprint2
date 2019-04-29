@@ -79,7 +79,7 @@ public class ItemViewActivity extends AppCompatActivity {
         }*/
 
         this.getProductLookupCodeTextView().setText(this.productTransition.getLookupCode());
-        this.getProductPriceTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.productTransition.getCount()));
+        this.getProductPriceTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.productTransition.getPrice()));
 
     }
 

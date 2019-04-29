@@ -47,6 +47,8 @@ public class CartListAdapter extends ArrayAdapter<Item> {
                 quantityTextView.setText(Integer.toString(item.getQuantity()));
             }
 
+
+
             /*final CheckBox deleteItemCheckBox = (CheckBox) view.findViewById(R.id.chk_selectitem);
             deleteItemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
