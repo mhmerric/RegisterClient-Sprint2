@@ -89,8 +89,8 @@
                         android:layout_weight="1.15"
                         android:button="@android:drawable/ic_delete"
                         android:checked="true"
-                        android:clickable="true"
-                        android:onClick="removeItemFromList"/>
+                        android:clickable="true"/>
+                        <!--android:onClick="removeItemFromList"-->
                 </LinearLayout>
 
             </LinearLayout>

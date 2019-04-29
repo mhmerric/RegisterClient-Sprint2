@@ -2,9 +2,11 @@ package edu.uark.uarkregisterapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -20,11 +22,12 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
     public static List<Item> selectedItems = new ArrayList<>();
     private static Item item;
+    View view;
 
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
+        view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
             view = inflater.inflate(R.layout.list_view_shopping_cart, parent, false);
@@ -32,7 +35,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
 
         item = this.getItem(position);
         if (item != null) {
-            TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
+            final TextView nameTextView = (TextView) view.findViewById(R.id.tv_name);
             if (nameTextView != null) {
                 nameTextView.setText(item.getLookupCode());
             }
@@ -47,18 +50,17 @@ public class CartListAdapter extends ArrayAdapter<Item> {
                 quantityTextView.setText(Integer.toString(item.getQuantity()));
             }
 
-
-
-            /*final CheckBox deleteItemCheckBox = (CheckBox) view.findViewById(R.id.chk_selectitem);
-            deleteItemCheckBox.setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteItemCheckBox.setChecked(true);
-                    ShoppingCartActivity.;
-
+                    for(int i = 0; i < CartListAdapter.selectedItems.size(); i++) {
+                        if(CartListAdapter.selectedItems.get(i).getLookupCode() == nameTextView.getText().toString()) {
+                            CartListAdapter.selectedItems.remove(i);
+                            ShoppingCartActivity.cartListAdapter.notifyDataSetChanged();
+                        }
+                    }
                 }
-            });*/
-
+            });
 
         }
 
@@ -68,21 +70,6 @@ public class CartListAdapter extends ArrayAdapter<Item> {
     public CartListAdapter(Context context, List<Item> items) {
         super(context, R.layout.list_view_shopping_cart, items);
     }
-
-    public static Item getitem() {
-        return item;
-    }
-    /*
-    public final int getItemPosition() {
-        Item i = this.getItem(position);
-    }
-
-    /*public void removeItemFromList(Item item) {
-        //Item item = CartListAdapter.getitem();
-        CartListAdapter.selectedItems.remove(item);
-        this.cartListAdapter.notifyDataSetChanged();
-        calculateTotal();
-    }*/
 }
 
 

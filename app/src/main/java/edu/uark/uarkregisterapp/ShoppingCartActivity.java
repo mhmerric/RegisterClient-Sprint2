@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -70,10 +71,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         tv_total = findViewById(R.id.tv_total);
 
-        this.getItemsView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*this.getCardView().findViewById(R.id.chk_selectitem).setOnClickListener(new AdapterView.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemPosition = position;
+            public void onClick(View view) {
+                TextView lookupCode = view.findViewById(R.id.tv_name);
+                for(Item i: CartListAdapter.selectedItems) {
+                    if(i.getLookupCode() == lookupCode.toString()) {
+                        CartListAdapter.selectedItems.remove(i);
+                    }
+                }
             }
         });
 
@@ -89,9 +95,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
         });*/
 
-        //getIntentData();
+                //getIntentData();
 
-        calculateTotal();
+                calculateTotal();
 
     }
 
@@ -115,6 +121,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private ListView getItemsView() {
         return (ListView) this.findViewById(R.id.list_view_items);
     }
+
+    private CardView getCardView() { return (CardView) this.findViewById(R.id.card_myevent); }
 
 
     /*
