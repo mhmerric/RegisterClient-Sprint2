@@ -45,20 +45,6 @@ public class ProductsListingUpdateActivity extends AppCompatActivity {
         this.productsListUpdateAdapter = new ProductsListUpdateAdapter(this, this.products);
         this.getProductsListView().setAdapter(this.productsListUpdateAdapter);
 
-        /*this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ItemViewActivity.class);
-
-                intent.putExtra(
-                        getString(R.string.intent_extra_product),
-                        new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
-                );
-
-                startActivity(intent);
-            }
-        });*/
-
 
         // Transition to ProductViewActivity
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {

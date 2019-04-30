@@ -35,21 +35,13 @@ import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.api.fields.TransactionFieldName;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
-import com.google.gson.*;
-
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
     public static TextView tv_total;
     public static int total = 0;
-    public int itemPosition = 0;
     public static CartListAdapter cartListAdapter;
-    //public static JsonArray jsonCartList = new JsonArray();
 
     public static int getTotal() {
         return total;
@@ -119,32 +111,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         if(CartListAdapter.selectedItems.size() > 0){
 
-            /*Gson gson = new Gson();
-
-            jsonCartList.add(gson.toJson(CartListAdapter.selectedItems));
-
-            final JSONObject orderInfo = new JSONObject();
-            try {
-                orderInfo.put(TransactionFieldName.ITEMS.getFieldName(), jsonCartList);
-                orderInfo.put(TransactionFieldName.EMPLOYEE_ID.getFieldName(), MainActivity.employeeTransition.getEmployeeId());
-                orderInfo.put(TransactionFieldName.PAYMENT_METHOD.getFieldName(), "cash");
-                orderInfo.put(TransactionFieldName.TOTAL_PRICE.getFieldName(), this.total);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }*/
-
-            //final Transaction transaction = new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getId(), this.total);
-
-
-
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which){
                         case DialogInterface.BUTTON_POSITIVE:
                             //Yes button clicked
-                            //placeOrderRequest(orderInfo);
-                            //startActivity(new Intent(getApplicationContext(), LandingActivity.class));
                             //CartListAdapter.selectedItems.clear();
                             new CreateTransactionTask().execute(new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal()));
                             break;
@@ -165,17 +137,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    private void placeOrderRequest(JSONObject order) {
-        //Send Request to Server with required Parameters
-        //(new TransactionService()).createTransaction(order);
-
-
-    }
-
-    public void receiptScreen() {
-        this.startActivity(new Intent(getApplicationContext(),ReceiptActivity.class));
     }
 
 
@@ -217,28 +178,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     .create()
                     .show();
             CartListAdapter.selectedItems.clear();
+            ShoppingCartActivity.cartListAdapter.notifyDataSetChanged();
+            calculateTotal();
 
-
-            //receiptScreen();
             Intent intent = new Intent(getApplicationContext(), ReceiptActivity.class);
-            //intent.putExtra("transaction", (Parcelable) new Transaction(apiResponse.getData()));
+            intent.putExtra(getString(R.string.intent_transaction), ( new TransactionTransition(apiResponse.getData()))); // sends to blank page
+            //intent.putExtra("transaction",  apiResponse.getData());
             startActivity(intent);
-            //Transaction t = new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal());
-            //t.setSaleId(apiResponse.getData());
 
-            //Transaction T = new Transaction();
-            //T = (Transaction) apiResponse.getData();
-            //System.out.print(T);
-
-            // TODO: create receipt screen
-            //intent.putExtra("transaction", (Parcelable) new Transaction(CartListAdapter.selectedItems, MainActivity.employeeTransition.getEmployeeId(), ShoppingCartActivity.getTotal()));
-            // TODO: add saleId to intent
-            //Transaction T = new Transaction();
-            //intent.putExtra("transaction", (Parcelable) new Transaction(apiResponse.getData()));
-            //Receipt receipt = new Receipt();
-            //intent.putExtra("receipt", receipt.addAll(apiResponse.getData()));
-
-            //startActivity(intent);
         }
 
         private android.support.v7.app.AlertDialog createTransactionAlert;

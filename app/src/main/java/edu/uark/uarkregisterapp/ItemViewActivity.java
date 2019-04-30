@@ -58,12 +58,6 @@ public class ItemViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        if (!this.productTransition.getId().equals(new UUID(0, 0))) {
-            this.getDeleteImageButton().setVisibility(View.VISIBLE);
-        } else {
-            this.getDeleteImageButton().setVisibility(View.INVISIBLE);
-        }*/
 
         this.getProductLookupCodeTextView().setText(this.productTransition.getLookupCode());
         this.getProductPriceTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.productTransition.getPrice()));
@@ -97,9 +91,7 @@ public class ItemViewActivity extends AppCompatActivity {
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
             CartListAdapter.selectedItems.add(item);
             Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_SHORT).show();
-            //Toast toast = Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG);
-            //toast.setMargin(20,50);
-            //toast.show();
+
         }
     }
 }

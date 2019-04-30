@@ -13,15 +13,41 @@ import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeClassification;
 
 public class TransactionTransition implements Parcelable {
-    private List<Item> selectedItems;
-    private String employeeId;
-    private String totalPrice;
+    //private List<Item> selectedItems;
+    private int employeeId;
+    private int total;
     private String paymentMethod;
-    private String saleId;
+    private int saleId;
+
+    public int getTotal() {
+        return this.total;
+    }
+
+    public int getEmployeeId() {
+        return this.employeeId;
+    }
+
+    public String getPaymentMethod() {
+        return this.paymentMethod;
+    }
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public TransactionTransition() {
+        this.employeeId = 0;
+        this.total = 0;
+        this.paymentMethod = "cash";
+        this.saleId = 0;
+    }
 
     public TransactionTransition(Parcel transactionTransitionParcel) {
         //this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(employeeTransitionParcel.createByteArray()).execute();
-        this.saleId = transactionTransitionParcel.readString();
+        this.saleId = transactionTransitionParcel.readInt();
+        this.total = transactionTransitionParcel.readInt();
+        this.paymentMethod = transactionTransitionParcel.readString();
+        this.employeeId = transactionTransitionParcel.readInt();
         //this.totalPrice = employeeTransitionParcel.readString();
         //this.paymentMethod = employeeTransitionParcel.readString();
         //this.employeeId = employeeTransitionParcel.readString();
@@ -32,10 +58,18 @@ public class TransactionTransition implements Parcelable {
 
         //this.createdOn = new Date();
         //this.createdOn.setTime(employeeTransitionParcel.readLong());
+
+        this.saleId = transactionTransitionParcel.readInt();
+        this.total = transactionTransitionParcel.readInt();
+        this.paymentMethod = transactionTransitionParcel.readString();
+        this.employeeId = transactionTransitionParcel.readInt();
     }
 
     public TransactionTransition(Transaction t) {
-        //this.saleId = t.saleId;
+        this.saleId = t.saleId;
+        this.total = t.total;
+        this.paymentMethod = t.paymentMethod;
+        this.employeeId = Integer.parseInt(t.employeeId);
     }
 
 
@@ -57,13 +91,13 @@ public class TransactionTransition implements Parcelable {
         return 0;
     }
 
-    public static final Parcelable.Creator<EmployeeTransition> CREATOR = new Parcelable.Creator<EmployeeTransition>() {
-        public EmployeeTransition createFromParcel(Parcel employeeTransitionParcel) {
-            return new EmployeeTransition(employeeTransitionParcel);
+    public static final Parcelable.Creator<TransactionTransition> CREATOR = new Parcelable.Creator<TransactionTransition>() {
+        public TransactionTransition createFromParcel(Parcel transactionTransitionParcel) {
+            return new TransactionTransition(transactionTransitionParcel);
         }
 
-        public EmployeeTransition[] newArray(int size) {
-            return new EmployeeTransition[size];
+        public TransactionTransition[] newArray(int size) {
+            return new TransactionTransition[size];
         }
     };
 }

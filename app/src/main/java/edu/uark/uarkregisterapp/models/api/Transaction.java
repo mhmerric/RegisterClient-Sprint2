@@ -40,6 +40,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 
     public Transaction() {
         this.selectedItems = new ArrayList<>();
+        this.paymentMethod = "cash";
     }
 
     public Transaction(Transaction t) {
@@ -60,10 +61,6 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
         JSONObject transaction = new JSONObject();
 
         try {
-            // convert items to json array
-            //Gson gson = new Gson();
-            //String items = new Gson().toJson(this.selectedItems);
-            //items = this.selectedItems.
             JSONArray items = new JSONArray();
             for(Item i: CartListAdapter.selectedItems) {
                 JSONObject item = new JSONObject();
@@ -87,24 +84,11 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 
     @Override
     public Transaction loadFromJson(JSONObject rawJsonObject) {
-        /*String value = rawJsonObject.optString(ProductFieldName.ID.getFieldName());
-        if (!StringUtils.isBlank(value)) {
-            this.id = UUID.fromString(value);
-        }*/
 
         this.employeeId = rawJsonObject.optString(TransactionFieldName.EMPLOYEE_ID.getFieldName());
         this.total = rawJsonObject.optInt(TransactionFieldName.TOTAL_PRICE.getFieldName());
         this.saleId = rawJsonObject.optInt(TransactionFieldName.SALE_ID.getFieldName());
         this.paymentMethod = rawJsonObject.optString(TransactionFieldName.PAYMENT_METHOD.getFieldName());
-        //this.selectedItems = rawJsonObject.optJSONArray(TransactionFieldName.ITEMS.getFieldName());
-        /*value = rawJsonObject.optString(ProductFieldName.CREATED_ON.getFieldName());
-        if (!StringUtils.isBlank(value)) {
-            try {
-                this.createdOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US).parse(value);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }*/
 
         return this;
     }

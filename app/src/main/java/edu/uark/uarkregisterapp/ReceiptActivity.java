@@ -1,24 +1,18 @@
 package edu.uark.uarkregisterapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Locale;
-
-import edu.uark.uarkregisterapp.adapters.CartListAdapter;
-import edu.uark.uarkregisterapp.models.api.Item;
-import edu.uark.uarkregisterapp.models.api.Transaction;
-import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class ReceiptActivity extends AppCompatActivity {
-    private Transaction transaction;
+    public static TransactionTransition transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +25,13 @@ public class ReceiptActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        //this.transaction = this.getIntent().getParcelableExtra("transaction");
+        // TODO: find why values are not getting stored in TransactionTransition
+        this.transaction = this.getIntent().getParcelableExtra(this.getString(R.string.intent_transaction));
+
+        /*this.getTotalTextView().setText(this.transaction.getTotal());
+        this.getSaleIdTextView().setText(this.transaction.getSaleId());
+        this.getCashierIdTextView().setText(this.transaction.getEmployeeId());
+        this.getPaymentMethodTextView().setText(this.transaction.getPaymentMethod());*/
 
     }
 
@@ -48,21 +48,23 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.getTotalTextView().setText("$" + Integer.toString(this.transaction.getTotal()));
+        this.getSaleIdTextView().setText(Integer.toString(this.transaction.getSaleId()));
+        this.getCashierIdTextView().setText(Integer.toString(this.transaction.getEmployeeId()));
+        this.getPaymentMethodTextView().setText(this.transaction.getPaymentMethod());
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        /*
-        if (!this.productTransition.getId().equals(new UUID(0, 0))) {
-            this.getDeleteImageButton().setVisibility(View.VISIBLE);
-        } else {
-            this.getDeleteImageButton().setVisibility(View.INVISIBLE);
-        }*/
 
-
-        //this.getSaleIdTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.transaction.saleId));
-        /*this.getTotalTextView().setText(this.transaction.total);
-        this.getSaleIdTextView().setText(this.transaction.saleId);
-        this.getCashierIdTextView().setText(this.transaction.employeeId);
-        this.getPaymentMethodTextView().setText(this.transaction.paymentMethod);*/
+        this.getTotalTextView().setText("$" + Integer.toString(this.transaction.getTotal()));
+        this.getSaleIdTextView().setText(Integer.toString(this.transaction.getSaleId()));
+        this.getCashierIdTextView().setText(Integer.toString(this.transaction.getEmployeeId()));
+        this.getPaymentMethodTextView().setText(this.transaction.getPaymentMethod());
 
     }
 
@@ -80,6 +82,10 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private TextView getPaymentMethodTextView() {
         return (TextView) this.findViewById(R.id.paymentMethod);
+    }
+
+    public void exitButton(View view) {
+        this.startActivity(new Intent(getApplicationContext(),LandingActivity.class));
     }
 
 }

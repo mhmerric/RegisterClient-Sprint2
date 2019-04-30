@@ -36,15 +36,6 @@
             android:textSize="20sp"></TextView>
     </LinearLayout>
 
-    <!--
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_cart"
-            android:layout_above="@+id/btn_placeorder"
-            android:layout_below="@+id/layout_total"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    -->
     <!--<ListView
         android:id="@+id/list_view_items"
         android:layout_width="wrap_content"
@@ -97,61 +88,15 @@
         android:layout_below="@id/label_paymentMethod" />
 
 
-
-
-
     <Button
         android:id="@+id/btn_placeorder"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:onClick="insertOrder"
+        android:onClick="exitButton"
         android:text="Exit"
         android:textColor="@android:color/white"
         android:theme="@style/Theme.AppCompat" />
 
 </RelativeLayout>
-
-    <!--
-    <?xml version="1.0" encoding="utf-8"?>
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="edu.uark.uarkregisterapp.ShoppingCartActivity">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:title="cart">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_shopping_cart"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <include layout="@layout/list_view_shopping_cart"/>
-
-
-    </android.support.design.widget.CoordinatorLayout>
-    -->

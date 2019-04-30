@@ -44,7 +44,8 @@
         <activity
             android:name=".ReceiptActivity"
             android:label="Receipt"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".LandingActivity"/>
         <activity
             android:name=".ReportProductsActivity"
             android:label="Product Sales Report"
