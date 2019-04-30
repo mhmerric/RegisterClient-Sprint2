@@ -75,15 +75,10 @@ public class TransactionTransition implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
-        /*destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
-        destination.writeString(this.employeeId);
-        destination.writeString(this.firstName);
-        destination.writeString(this.lastName);
-        destination.writeString(this.password);
-        destination.writeInt(this.active ? 1 : 0);
-        destination.writeInt(this.classification.getValue());
-        destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.managerId).execute());
-        destination.writeLong(this.createdOn.getTime());*/
+        destination.writeInt(this.saleId);
+        destination.writeInt(this.total);
+        destination.writeString(this.paymentMethod);
+        destination.writeInt(this.employeeId);
     }
 
     @Override
