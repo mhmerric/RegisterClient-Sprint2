@@ -14,15 +14,16 @@ import java.util.Locale;
 
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
+import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class ReceiptActivity extends AppCompatActivity {
-    private ProductTransition productTransition;
+    private Transaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_view);
+        setContentView(R.layout.activity_receipt_view);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         ActionBar actionBar = this.getSupportActionBar();
@@ -30,7 +31,7 @@ public class ReceiptActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        this.productTransition = this.getIntent().getParcelableExtra("transaction");
+        //this.transaction = this.getIntent().getParcelableExtra("transaction");
 
     }
 
@@ -56,21 +57,29 @@ public class ReceiptActivity extends AppCompatActivity {
             this.getDeleteImageButton().setVisibility(View.INVISIBLE);
         }*/
 
-        this.getProductLookupCodeTextView().setText(this.productTransition.getLookupCode());
-        this.getProductPriceTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.productTransition.getPrice()));
+
+        //this.getSaleIdTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.transaction.saleId));
+        /*this.getTotalTextView().setText(this.transaction.total);
+        this.getSaleIdTextView().setText(this.transaction.saleId);
+        this.getCashierIdTextView().setText(this.transaction.employeeId);
+        this.getPaymentMethodTextView().setText(this.transaction.paymentMethod);*/
 
     }
 
-    private TextView getProductLookupCodeTextView() {
-        return (TextView) this.findViewById(R.id.text_view_lookup_code);
+    private TextView getTotalTextView() {
+        return (TextView) this.findViewById(R.id.tv_total);
     }
 
-    private EditText getProductQuantityEditText() {
-        return (EditText) this.findViewById(R.id.edit_text_select_quantity);
+    private TextView getSaleIdTextView() {
+        return (TextView) this.findViewById(R.id.saleId);
     }
 
-    private TextView getProductPriceTextView() {
-        return (TextView) this.findViewById(R.id.text_view_subtotal);
+    private TextView getCashierIdTextView() {
+        return (TextView) this.findViewById(R.id.employeeId);
+    }
+
+    private TextView getPaymentMethodTextView() {
+        return (TextView) this.findViewById(R.id.paymentMethod);
     }
 
 }
