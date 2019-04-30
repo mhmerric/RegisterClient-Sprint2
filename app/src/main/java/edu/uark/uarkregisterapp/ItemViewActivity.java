@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import edu.uark.uarkregisterapp.adapters.CartListAdapter;
 import edu.uark.uarkregisterapp.models.api.Item;
 import edu.uark.uarkregisterapp.models.api.Product;
@@ -39,21 +41,6 @@ public class ItemViewActivity extends AppCompatActivity {
 
         this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
 
-        // Transition to ProductViewActivity
-		/*this.getUpdateProductButton().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
-
-				intent.putExtra(
-					getString(R.string.intent_extra_product),
-					new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
-				);
-
-				startActivity(intent);
-			}
-		});*/
-
     }
 
     @Override
@@ -71,12 +58,6 @@ public class ItemViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        if (!this.productTransition.getId().equals(new UUID(0, 0))) {
-            this.getDeleteImageButton().setVisibility(View.VISIBLE);
-        } else {
-            this.getDeleteImageButton().setVisibility(View.INVISIBLE);
-        }*/
 
         this.getProductLookupCodeTextView().setText(this.productTransition.getLookupCode());
         this.getProductPriceTextView().setText("$" + String.format(Locale.getDefault(), "%d", this.productTransition.getPrice()));
@@ -95,25 +76,22 @@ public class ItemViewActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_view_subtotal);
     }
 
-    public void getUpdateProductButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), ProductViewActivity.class));
-    }
-
-    // TODO: add error checking for no quantity input
     public void addToCart(View view) {
         Item item = new Item(productTransition);
         // Set quantity
-        item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
+        if (StringUtils.isBlank(getProductQuantityEditText().getText().toString())) {
+            item.setQuantity(1);
+        } else {
+            item.setQuantity(Integer.parseInt(getProductQuantityEditText().getText().toString()));
+        }
         // Calculate subtotal
         int subtotal = (item.getQuantity() * item.getPrice());
         item.setPrice(subtotal);
 
         if(CartListAdapter.selectedItems.indexOf(item) == -1) {
             CartListAdapter.selectedItems.add(item);
-            Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG).show();
-            //Toast toast = Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_LONG);
-            //toast.setMargin(20,50);
-            //toast.show();
+            Toast.makeText(ItemViewActivity.this,"Added To Cart!",Toast.LENGTH_SHORT).show();
+
         }
     }
 }

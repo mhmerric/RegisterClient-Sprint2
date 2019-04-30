@@ -66,6 +66,7 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
     <string name="intent_extra_product">intent_extra_product</string>
+    <string name="intent_transaction">intent_transaction</string>
     <string name="title_activity_create_employee">Create Employee</string>
     <string name="title_activity_main">Main Menu</string>
     <string name="title_shopping_cart">Shopping Cart</string>

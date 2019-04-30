@@ -6,7 +6,8 @@ public enum TransactionFieldName implements FieldNameInterface {
     EMPLOYEE_ID("employeeId"),
     ITEMS("items"),
     TOTAL_PRICE("totalPrice"),
-    PAYMENT_METHOD("paymentMethod");
+    PAYMENT_METHOD("paymentMethod"),
+    SALE_ID("saleId");
 
 
     private String fieldName;

@@ -14,24 +14,24 @@ import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item> {
 
     private String lookupCode;      // product NAme
-    private UUID itemId;            // productID
+    private UUID productId;            // productID
     private int quantityPurchased;  // quantityPurchased
-    private int price;              // Single item's subtotal
+    private int subtotal;              // Single item's subtotal
     private String paymentMethod;   // Payment Method
 
     public Item(ProductTransition p) {
-        this.itemId = p.getId();
+        this.productId = p.getId();
         this.lookupCode = p.getLookupCode();
         this.quantityPurchased = 1;
-        this.price = p.getPrice();
+        this.subtotal = p.getPrice();
         //this.paymentMethod = "Cash";
     }
 
     public Item(Item i) {
-        this.itemId = i.getItemId();
+        this.productId = i.getItemId();
         this.lookupCode = i.getLookupCode();
         this.quantityPurchased = i.getQuantity();
-        this.price = i.getPrice();
+        this.subtotal = i.getPrice();
     }
 
 
@@ -44,11 +44,11 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
     }
 
     public Item setItemId(UUID itemId) {
-        this.itemId = itemId;
+        this.productId = itemId;
         return this;
     }
     public UUID getItemId(){
-        return this.itemId;
+        return this.productId;
     }
 
     public Item setQuantity(int quantity) {
@@ -60,15 +60,15 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
     }
 
     public Item setPrice(int price){
-        this.price = price;
+        this.subtotal = price;
         return this;
     }
     public int getPrice(){
-        return this.price;
+        return this.subtotal;
     }
 
     public String getJsonObject(){
-        return "{ItemId:"+this.itemId+",Quantity:"+this.quantityPurchased+"}";
+        return "{ItemId:"+this.productId+",Quantity:"+this.quantityPurchased+"}";
     }
 
     @Override
@@ -76,9 +76,9 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put(ItemFieldName.ITEM_ID.getFieldName(), this.itemId.toString());
+            jsonObject.put(ItemFieldName.ITEM_ID.getFieldName(), this.productId.toString());
             jsonObject.put(ItemFieldName.QUANTITY.getFieldName(), this.quantityPurchased);
-            jsonObject.put(ItemFieldName.PRICE.getFieldName(), this.price);
+            jsonObject.put(ItemFieldName.PRICE.getFieldName(), this.subtotal);
             //jsonObject.put(ItemFieldName.PAYMENT_METHOD.getFieldName(), this.paymentMethod);
             //jsonObject.put(ItemFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
         } catch (JSONException e) {
@@ -92,11 +92,11 @@ public class Item implements ConvertToJsonInterface, LoadFromJsonInterface<Item>
     public Item loadFromJson(JSONObject rawJsonObject) {
         String value = rawJsonObject.optString(ItemFieldName.ITEM_ID.getFieldName());
         if (!StringUtils.isBlank(value)) {
-            this.itemId = UUID.fromString(value);
+            this.productId = UUID.fromString(value);
         }
 
         this.quantityPurchased = rawJsonObject.optInt(ItemFieldName.QUANTITY.getFieldName());
-        this.price = rawJsonObject.optInt(ItemFieldName.PRICE.getFieldName());
+        this.subtotal = rawJsonObject.optInt(ItemFieldName.PRICE.getFieldName());
 
         /*value = rawJsonObject.optString(ProductFieldName.CREATED_ON.getFieldName());
         if (!StringUtils.isBlank(value)) {

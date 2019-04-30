@@ -57,6 +57,7 @@ public class CartListAdapter extends ArrayAdapter<Item> {
                         if(CartListAdapter.selectedItems.get(i).getLookupCode() == nameTextView.getText().toString()) {
                             CartListAdapter.selectedItems.remove(i);
                             ShoppingCartActivity.cartListAdapter.notifyDataSetChanged();
+                            ShoppingCartActivity.calculateTotal();
                         }
                     }
                 }

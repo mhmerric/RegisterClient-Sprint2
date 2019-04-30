@@ -51,6 +51,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 		this.productListAdapter = new ProductListAdapter(this, this.products);
 		this.getProductsListView().setAdapter(this.productListAdapter);
 
+		// Transition to ItemViewActivity
 		this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,22 +65,6 @@ public class ProductsListingActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-
-
-		// Transition to ProductViewActivity
-		/*this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
-
-				intent.putExtra(
-					getString(R.string.intent_extra_product),
-					new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
-				);
-
-				startActivity(intent);
-			}
-		});*/
 
 		theFilter.addTextChangedListener(new TextWatcher() {
 			@Override

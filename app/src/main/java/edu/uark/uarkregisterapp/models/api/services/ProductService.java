@@ -39,6 +39,30 @@ public class ProductService extends BaseRemoteService {
 		);
 	}
 
+	public ApiResponse<List<Product>> getProductReport() {
+		ApiResponse<List<Product>> apiResponse = this.performGetRequest(
+				this.buildPath()
+		);
+
+		JSONArray rawJsonArray = this.rawResponseToJSONArray(apiResponse.getRawResponse());
+		if (rawJsonArray != null) {
+			ArrayList<Product> products = new ArrayList<>(rawJsonArray.length());
+			for (int i = 0; i < rawJsonArray.length(); i++) {
+				try {
+					products.add((new Product()).loadFromJson(rawJsonArray.getJSONObject(i)));
+				} catch (JSONException e) {
+					Log.d("GET PRODUCTS", e.getMessage());
+				}
+			}
+
+			apiResponse.setData(products);
+		} else {
+			apiResponse.setData(new ArrayList<Product>(0));
+		}
+
+		return apiResponse;
+	}
+
 	public ApiResponse<List<Product>> getProducts() {
 		ApiResponse<List<Product>> apiResponse = this.performGetRequest(
 			this.buildPath()
